@@ -1,7 +1,11 @@
 package com.bdj.blooddonateproject.user.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -15,7 +19,7 @@ import com.bdj.blooddonateproject.hospital.model.Hospital;
 
 @Entity
 @Table(name = "user", schema = "v1")
-public class User {
+public class User implements Serializable {
     @Id
     @GeneratedValue(generator = "user_generator")
     @SequenceGenerator(name = "user_generator", sequenceName = "user_sequence", initialValue = 1, allocationSize = 1)
@@ -28,6 +32,8 @@ public class User {
 
     @Column(unique = true)
     private String password;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private RoleEnum role;
     private Boolean isDeleted;
 
