@@ -23,7 +23,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 // OncePerRequestFilter sẽ chỉ thực hiện một lần filter trong mỗi request.
@@ -52,14 +51,17 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         // TODO Auto-generated method stub
         String authorizationHeader = request.getHeader("Authorization");
-        System.out.println(authorizationHeader);
         UserPrincipal user = null;
         Token token = null;
         if (StringUtils.hasText(authorizationHeader) && authorizationHeader.startsWith("Token ")) {
             String jwt = authorizationHeader.substring(6);
-            user = jwtUtil.getUserFromToken(jwt);
-            // System.out.println(user.getUsername());
             token = tokenService.findByToken(jwt);
+            if (token != null) {
+                user = jwtUtil.getUserFromToken(jwt);
+            } else {
+                response.setStatus(404);
+                return;
+            }
         }
 
         if (null != user && null != token && token.getTokenExpDate().after(new Date())) {

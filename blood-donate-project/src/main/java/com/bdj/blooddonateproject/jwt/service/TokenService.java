@@ -6,4 +6,6 @@ public interface TokenService {
     Token createToken(Token token);
 
     Token findByToken(String token);
+
+    Integer deleteToken(String token);
 }

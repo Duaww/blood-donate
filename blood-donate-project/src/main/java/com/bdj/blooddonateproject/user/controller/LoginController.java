@@ -64,6 +64,17 @@ public class LoginController {
         return ResponseEntity.ok(token.getToken());
     }
 
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(@RequestBody String token) {
+        int countRow = tokenService.deleteToken(token);
+        if (countRow == 1) {
+            SecurityContextHolder.getContext().setAuthentication(null);
+            return ResponseEntity.ok("logout success");
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("login failed");
+
+    }
+
     @GetMapping("/all")
     public String allAccess() {
         return "Public Content.";
@@ -72,10 +83,16 @@ public class LoginController {
     @GetMapping("/user")
     @PreAuthorize("hasRole('ROLE_DONATOR') or hasRole('ROLE_ADMIN')")
     public String userAccess() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails) {
-            UserPrincipal userPrincipal = (UserPrincipal) principal;
-            System.out.println(userPrincipal.getAuthorities());
+        try {
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if (principal instanceof UserDetails) {
+                UserPrincipal userPrincipal = (UserPrincipal) principal;
+                System.out.println(userPrincipal.getAuthorities());
+            }
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            return e.getMessage();
         }
         return "User Content.";
     }

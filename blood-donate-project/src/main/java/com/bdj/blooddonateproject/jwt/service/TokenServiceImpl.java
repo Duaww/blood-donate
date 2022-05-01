@@ -28,4 +28,11 @@ public class TokenServiceImpl implements TokenService {
         return tokenRepo.findByToken(token);
     }
 
+    @Override
+    public Integer deleteToken(String token) {
+        // TODO Auto-generated method stub
+        return tokenRepo.deleteByToken(token);
+
+    }
+
 }
