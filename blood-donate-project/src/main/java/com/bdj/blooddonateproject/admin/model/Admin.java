@@ -21,7 +21,7 @@ public class Admin {
     private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "uuid")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User admin;
 
     public User getAdmin() {

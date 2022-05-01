@@ -8,4 +8,6 @@ public interface UserService {
     User registerNewUser(SignUpDTO request);
 
     User saveUser(User user);
+
+    User findByUsername(String username);
 }

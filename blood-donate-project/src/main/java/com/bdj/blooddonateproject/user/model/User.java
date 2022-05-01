@@ -20,13 +20,18 @@ import com.bdj.blooddonateproject.hospital.model.Hospital;
 @Entity
 @Table(name = "user", schema = "v1")
 public class User implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(generator = "user_generator")
     @SequenceGenerator(name = "user_generator", sequenceName = "user_sequence", initialValue = 1, allocationSize = 1)
+    @Column(name = "id")
     private Long id;
 
-    @Column(unique = true)
+    @Column(name = "uuid", unique = true)
     private String uuid;
+
     @Column(unique = true)
     private String username;
 
@@ -125,12 +130,10 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(String uuid, String username, String password, RoleEnum role, Boolean isDeleted) {
-        this.uuid = uuid;
+    public User(String username, String password, RoleEnum role) {
         this.username = username;
         this.password = password;
         this.role = role;
-        this.isDeleted = isDeleted;
     }
 
 }

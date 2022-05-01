@@ -6,6 +6,7 @@ import com.bdj.blooddonateproject.user.model.User;
 import com.bdj.blooddonateproject.user.repo.UserRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -33,16 +34,26 @@ public class UserServiceImpl implements UserService {
         if (userRepo.findByUsername(request.getUsername()).isPresent()) {
             throw new IllegalStateException("name exist");
         }
-
-        User newUser = new User(UUID.randomUUID().toString(), request.getUsername(),
+        User newUser = new User(request.getUsername(),
                 passwordEncoder.encode(request.getPassword()),
-                RoleEnum.ROLE_DONATOR, false);
+                RoleEnum.ROLE_DONATOR);
+        newUser.setUuid(UUID.randomUUID().toString());
+        newUser.setIsDeleted(false);
         return userRepo.saveAndFlush(newUser);
     }
 
     @Override
     public User saveUser(User user) {
         return userRepo.saveAndFlush(user);
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        // TODO Auto-generated method stub
+        User user = userRepo.findByUsername(username).orElseThrow(() -> {
+            return new UsernameNotFoundException("User name" + username + "is not found in DB");
+        });
+        return user;
     }
 
 }
