@@ -6,8 +6,11 @@ class MyProfileService {
 
     getMyProfile(token) {
         const PROFILE_URI = AUTH_BASE_API_URI + "my-profile";
-        const valueHeader = "Token " + token;
-        return axios.get(PROFILE_URI, { headers: { "Authorization": valueHeader } });
+        const author = "Token " + token;
+        const headers = {
+            'Authorization': author,
+        }
+        return axios.get(PROFILE_URI, { headers: headers });
     }
 
 }
