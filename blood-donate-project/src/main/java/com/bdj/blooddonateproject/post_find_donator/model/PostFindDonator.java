@@ -3,6 +3,7 @@ package com.bdj.blooddonateproject.post_find_donator.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,7 +30,7 @@ public class PostFindDonator {
     private Long id;
 
     @Column(columnDefinition = "TEXT")
-    private Long content;
+    private String content;
 
     private Integer createAt;
 
@@ -75,11 +76,11 @@ public class PostFindDonator {
         this.id = id;
     }
 
-    public Long getContent() {
+    public String getContent() {
         return this.content;
     }
 
-    public void setContent(Long content) {
+    public void setContent(String content) {
         this.content = content;
     }
 
@@ -118,7 +119,7 @@ public class PostFindDonator {
     public PostFindDonator() {
     }
 
-    public PostFindDonator(Long content, Integer createAt, Integer updateAt, Integer deadlineRegister,
+    public PostFindDonator(String content, Integer createAt, Integer updateAt, Integer deadlineRegister,
             Boolean isDeleted) {
         this.content = content;
         this.createAt = createAt;
