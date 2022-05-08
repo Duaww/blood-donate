@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const AUTH_BASE_API_URI = "http://localhost:8080/api/test/";
+const AUTH_BASE_API_URI = "http://localhost:8080/api/user/";
 
 class MyProfileService {
 
@@ -14,6 +14,5 @@ class MyProfileService {
     }
 
 }
-
 
 export default new MyProfileService();

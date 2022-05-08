@@ -62,7 +62,7 @@ public class PostFindDonatorDTO {
         this.content = postFindDonator.getContent();
         this.createAt = postFindDonator.getCreateAt();
         this.updateAt = postFindDonator.getUpdateAt();
-        this.deadlineRegister = postFindDonator.getCreateAt();
+        this.deadlineRegister = postFindDonator.getDeadlineRegister();
         this.hospitalInfo = new HospitalInfoDTO(postFindDonator.getHospital());
     }
 
