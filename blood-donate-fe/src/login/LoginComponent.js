@@ -26,7 +26,7 @@ export const LoginComponent = (props) => {
             .catch((error) => {
                 // let message = error.response.data;
                 let statusCode = error.response.status;
-                if (statusCode === 400) {
+                if (statusCode === 400 || statusCode === 401) {
                     navigate("/auth-error");
                 }
             });
