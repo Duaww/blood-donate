@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/constant/role.dart';
+import 'package:mobile/jwt/TokenService.dart';
 import 'package:mobile/login/service/LoginSerivce.dart';
+import 'package:mobile/profile/component/ProfileScreen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -13,6 +16,7 @@ class _LoginScreen extends State<LoginScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   String token = "";
+  String roleOfUser = "";
 
   @override
   void initState() {
@@ -71,15 +75,38 @@ class _LoginScreen extends State<LoginScreen> {
                 child: ElevatedButton(
                   child: const Text('Login'),
                   onPressed: (() => {
-                        print(LoginService.BASE_AUTH_URL),
+                        // print(LoginService.BASE_AUTH_URL),
                         LoginService.login(
                                 nameController.text, passwordController.text)
                             .then((res) => {
                                   token = res.data,
-                                  print(token),
+                                  roleOfUser =
+                                      TokenSerivce.decode(token)["authorities"]
+                                          [0],
+                                  if (roleOfUser ==
+                                      Role.ROLE_DONATOR
+                                          .toString()
+                                          .split(".")
+                                          .last)
+                                    {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ProfileScreen(token: token))),
+                                    }
+                                  else
+                                    {
+                                      showModal(context, 'Not have role',
+                                          'You not have role to login here'),
+                                      // print("you not have role to login here"),
+                                    }
                                 })
-                            .catchError(
-                                (onError) => {print(onError.toString())}),
+                            .catchError((onError) => {
+                                  showModal(context, 'Login failed',
+                                      'Username or password incorrect'),
+                                  // print("username or password incorrect"),
+                                }),
                       }),
                 )),
             Row(
@@ -99,5 +126,22 @@ class _LoginScreen extends State<LoginScreen> {
             ),
           ],
         ));
+  }
+
+  Future<dynamic> showModal(
+      BuildContext context, String title, String content) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext buiderContext) => new AlertDialog(
+              title: new Text(title),
+              content: new Text(content),
+              actions: <Widget>[
+                new IconButton(
+                    icon: new Icon(Icons.close),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    })
+              ],
+            ));
   }
 }
