@@ -43,4 +43,37 @@ public class PostFindDonatorServiceImpl implements PostFindDonatorService {
         postFindDonatorRepo.saveAndFlush(postFindDonator);
     }
 
+    @Override
+    public PostFindDonatorDTO getPostFindDonator(Long id) {
+        // TODO Auto-generated method stub
+        PostFindDonator postFindDonator = postFindDonatorRepo.getPostFindDonator(id)
+                .orElseThrow(() -> new IllegalStateException("post not found"));
+
+        return new PostFindDonatorDTO(postFindDonator);
+    }
+
+    @Override
+    public void updatePost(CreatePostDTO createPostDTO, Long id) {
+        // TODO Auto-generated method stub
+        PostFindDonator postFindDonator = this.findById(id);
+        postFindDonator.setContent(createPostDTO.getContent());
+        postFindDonator.setUpdateAt((int) (new Date().getTime() / 1000));
+        postFindDonatorRepo.saveAndFlush(postFindDonator);
+
+    }
+
+    @Override
+    public void deletePost(Long id) {
+        // TODO Auto-generated method stub
+        PostFindDonator postFindDonator = this.findById(id);
+        postFindDonator.setIsDeleted(true);
+        postFindDonatorRepo.saveAndFlush(postFindDonator);
+    }
+
+    @Override
+    public PostFindDonator findById(Long id) {
+        // TODO Auto-generated method stub
+        return postFindDonatorRepo.findById(id).orElseThrow(() -> new IllegalStateException("not found post"));
+    }
+
 }

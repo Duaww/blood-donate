@@ -6,6 +6,7 @@ import { AuthError } from './error/AuthError';
 import { MyProfileComponent } from './profile/MyProfileComponent';
 import { CreatePostComponent } from './post-find-donator/CreatePostComponent';
 import { ListPostComponent } from './post-find-donator/ListPostComponent';
+import { PostDetailComponent } from './post-find-donator/PostDetailComponent';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
               <Route path="my-profile" element={<MyProfileComponent />} />
               <Route path="create-post" element={<CreatePostComponent />} />
               <Route path="list-post" element={<ListPostComponent />} />
+              <Route path="detail/:key" element={<PostDetailComponent/>} />
             </Routes>
           </header>
         </div>{" "}

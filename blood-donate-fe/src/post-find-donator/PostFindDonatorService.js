@@ -23,6 +23,35 @@ class PostFindDonatorService {
         };
         return axios.post(POST_BASE_API_URI, postInfo, { headers: headers });
     }
+
+    getPostDetail(token, key) {
+        const author = "Token " + token;
+        const headers = {
+            'Authorization': author
+        };
+
+        const DETAIL_POST_URI = POST_BASE_API_URI + "detail/" + key;
+        return axios.get(DETAIL_POST_URI, { headers: headers });
+    }
+
+    updatePost(token, key, updateForm) {
+        const author = "Token " + token;
+        const headers = {
+            'Authorization': author,
+            'Content-Type': 'application/json'
+        };
+        const UPDATE_POST_URI = POST_BASE_API_URI + key;
+        return axios.put(UPDATE_POST_URI, updateForm, { headers: headers });
+    }
+
+    deletePost(token, key) {
+        const author = "Token " + token;
+        const headers = {
+            'Authorization': author
+        };
+        const DELETE_POST_URI = POST_BASE_API_URI + key;
+        return axios.delete(DELETE_POST_URI, { headers: headers });
+    }
 }
 
 export default new PostFindDonatorService();

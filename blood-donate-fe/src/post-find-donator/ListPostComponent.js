@@ -13,11 +13,11 @@ export const ListPostComponent = () => {
       
     useEffect(() => {
         const checkAuth = () => {
-            if (location["state"] == null) {
+            const token = localStorage.getItem('token');
+            if (token == null) {
                 navigate("/");
                 return;
             }
-            const token = location["state"]["token"];
             setToken(token);
             getListMyPost(token);
         };
@@ -33,7 +33,7 @@ export const ListPostComponent = () => {
         };
         PostFindDonatorService.getListMyPost(token, params)
             .then((res) => {
-                console.log(res.data.content);
+                // console.log(res.data.content);
                 let listPost = res.data.content;
                 setListPost(listPost);
             })
@@ -44,7 +44,11 @@ export const ListPostComponent = () => {
 
 
     function goBack() {
-        navigate("/my-profile",  {state: {token}});
+        navigate("/my-profile");
+    }
+
+    function getInforPost(key) {
+        navigate(`/detail/${key}`);
     }
 
     function convertTimeStampToDate(timestamp) {
@@ -60,6 +64,9 @@ export const ListPostComponent = () => {
                         {post.content}
                     </p>
                     <span>{convertTimeStampToDate(post.deadlineRegister)}</span>
+                    <br />
+                     <input type="button" value="Detail" onClick={() => getInforPost(post.id)} />
+                    <span>--------------------</span>
                 </div>
             ))}
             <input type="button" value="Back" onClick={() => goBack()} />

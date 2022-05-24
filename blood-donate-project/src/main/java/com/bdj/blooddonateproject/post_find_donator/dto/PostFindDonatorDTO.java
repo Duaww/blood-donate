@@ -5,6 +5,8 @@ import com.bdj.blooddonateproject.user.dto.HospitalInfoDTO;
 
 public class PostFindDonatorDTO {
 
+    private Long id;
+
     private String content;
 
     private Integer createAt;
@@ -14,6 +16,22 @@ public class PostFindDonatorDTO {
     private Integer deadlineRegister;
 
     private HospitalInfoDTO hospitalInfo;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public HospitalInfoDTO getHospitalInfo() {
+        return this.hospitalInfo;
+    }
+
+    public void setHospitalInfo(HospitalInfoDTO hospitalInfo) {
+        this.hospitalInfo = hospitalInfo;
+    }
 
     public String getContent() {
         return this.content;
@@ -59,6 +77,7 @@ public class PostFindDonatorDTO {
     }
 
     public PostFindDonatorDTO(PostFindDonator postFindDonator) {
+        this.id = postFindDonator.getId();
         this.content = postFindDonator.getContent();
         this.createAt = postFindDonator.getCreateAt();
         this.updateAt = postFindDonator.getUpdateAt();
@@ -66,7 +85,7 @@ public class PostFindDonatorDTO {
         this.hospitalInfo = new HospitalInfoDTO(postFindDonator.getHospital());
     }
 
-    public PostFindDonatorDTO(String content, Integer createAt, Integer updateAt, Integer deadlineRegister,
+    public PostFindDonatorDTO(Long id, String content, Integer createAt, Integer updateAt, Integer deadlineRegister,
             HospitalInfoDTO hospital) {
         this.content = content;
         this.createAt = createAt;

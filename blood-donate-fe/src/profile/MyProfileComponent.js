@@ -9,17 +9,18 @@ export const MyProfileComponent = () => {
     const [name, setName] = useState("");
     const [address, setAddress] = useState("");
     const [token, setToken] = useState("");
-    const location = useLocation();
     const navigate = useNavigate();
     
     
     useEffect(() => {
         const getMyProfile = () => {
-            if (location["state"] == null) {
+            
+            const token = localStorage.getItem('token');
+            if (token == null) {
                 navigate("/");
                 return;
             }
-            const token = location["state"]["token"];
+            // const token = location["state"]["token"];
             setToken(token);
             MyProfileService.getMyProfile(token)
                 .then((res) => {
@@ -35,11 +36,11 @@ export const MyProfileComponent = () => {
 
 
     function createPost() {
-        navigate("/create-post", {state: {token}});
+        navigate("/create-post");
     }
 
     function listPost() {
-        navigate("/list-post",  {state: {token}});
+        navigate("/list-post");
     }
 
     function logout() {

@@ -14,11 +14,12 @@ export const CreatePostComponent = () => {
     const location = useLocation();
     useEffect(() => {
         const checkAuth = () => {
-            if (location["state"] == null) {
+            const token = localStorage.getItem('token');
+            if (token == null) {
                 navigate("/");
                 return;
             }
-            setToken(location["state"]["token"]);
+            setToken(token);
         };
         checkAuth();
     }, []);
@@ -36,7 +37,7 @@ export const CreatePostComponent = () => {
         let postInfo = { content: contentPost, deadlineRegister: deadline };
         PostFindDonatorService.createNewPost(token, postInfo)
             .then((res) => {
-                navigate("/list-post", { state: { token } });
+                navigate("/list-post");
             })
             .catch((error) => {
                 console.log(error);

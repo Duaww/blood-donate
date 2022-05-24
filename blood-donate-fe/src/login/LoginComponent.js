@@ -20,7 +20,8 @@ export const LoginComponent = (props) => {
                 if (authorizon != Role.HOSPITAL) {
                     navigate("/auth-error");
                 } else {
-                    navigate("/my-profile", {state: {token}});
+                    localStorage.setItem('token', token);
+                    navigate("/my-profile");
                 }
             })
             .catch((error) => {
