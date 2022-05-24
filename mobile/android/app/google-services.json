@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "187635518502",
+    "project_id": "blood-donator-message",
+    "storage_bucket": "blood-donator-message.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:187635518502:android:0cd68cff6643fce893aae7",
+        "android_client_info": {
+          "package_name": "com.example.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "187635518502-4a9ntn1hkvdgjt1krb99eadsi12sj2vp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALmcbgvUdmw8EXO1hsxx_KEGcyRTv88NA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "187635518502-4a9ntn1hkvdgjt1krb99eadsi12sj2vp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
