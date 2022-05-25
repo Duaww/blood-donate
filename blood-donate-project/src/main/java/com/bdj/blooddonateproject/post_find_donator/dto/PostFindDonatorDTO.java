@@ -65,14 +65,6 @@ public class PostFindDonatorDTO {
         this.deadlineRegister = deadlineRegister;
     }
 
-    public HospitalInfoDTO getHospital() {
-        return this.hospitalInfo;
-    }
-
-    public void setHospital(HospitalInfoDTO hospital) {
-        this.hospitalInfo = hospital;
-    }
-
     public PostFindDonatorDTO() {
     }
 

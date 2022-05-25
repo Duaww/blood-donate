@@ -22,7 +22,6 @@ export const ListPostComponent = () => {
             getListMyPost(token);
         };
         checkAuth();
-        
     }, []);
 
 
@@ -59,7 +58,7 @@ export const ListPostComponent = () => {
         <div>
             ListPost
             {listPost.map((post, index) => (
-                <div key={index}>
+                <div className="row"  key={index}>
                     <p>
                         {post.content}
                     </p>

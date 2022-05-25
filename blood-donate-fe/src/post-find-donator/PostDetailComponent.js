@@ -66,6 +66,9 @@ export const PostDetailComponent = () => {
             });
     }
 
+    function getListRegister(key) {
+        navigate(`/register-post/${key}`);
+    }
 
     return (
         <div>
@@ -84,6 +87,7 @@ export const PostDetailComponent = () => {
             
             <input type="button" value="Edit" onClick={() => editPost(key)} />
             <input type="button" value="Delete" onClick={() => deletePost(key)} />
+            <input type="button" value="List Donate Register" onClick={() => getListRegister(key)} />
             <input type="button" value="Back" onClick={() => goBack()} />
              
         </div>

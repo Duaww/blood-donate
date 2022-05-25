@@ -1,7 +1,5 @@
 package com.bdj.blooddonateproject.user.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.bdj.blooddonateproject.config.UserPrincipal;
 import com.bdj.blooddonateproject.jwt.model.JwtUtil;
 import com.bdj.blooddonateproject.jwt.model.Token;
