@@ -44,6 +44,12 @@ export const RegisterToDonateComponent = () => {
         return new Date(timestamp * 1000).toDateString();
     }
 
+    
+    function goBack() {
+        navigate(-1);
+    }
+
+
     return (
         <div>
             listRegister
@@ -69,6 +75,7 @@ export const RegisterToDonateComponent = () => {
                     <span>--------------------</span>
                 </div>
             ))}
+            <input type="button" value="Back" onClick={() => goBack()} />
         </div>
     );
 }

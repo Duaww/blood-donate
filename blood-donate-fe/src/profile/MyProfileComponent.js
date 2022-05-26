@@ -43,9 +43,14 @@ export const MyProfileComponent = () => {
         navigate("/list-post");
     }
 
+    function listDonated() {
+        navigate("/donated");
+    }
+
     function logout() {
         LoginService.logout(token)
             .then((res) => {
+                localStorage.removeItem('token');
                 navigate("/");
             })
             .catch((error) => {
@@ -59,6 +64,7 @@ export const MyProfileComponent = () => {
             <span>{address}</span>
             <input type="button" value="Create new post" onClick={() => createPost()} />
             <input type="button" value="List Post" onClick={() => listPost()} />
+            <input type="button" value="List Donated" onClick={() => listDonated()} />
             <input type="button" value="Logout" onClick={() => logout()} />
         </div>
         

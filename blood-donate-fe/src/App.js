@@ -7,7 +7,8 @@ import { MyProfileComponent } from './profile/MyProfileComponent';
 import { CreatePostComponent } from './post-find-donator/CreatePostComponent';
 import { ListPostComponent } from './post-find-donator/ListPostComponent';
 import { PostDetailComponent } from './post-find-donator/PostDetailComponent';
-import { RegisterToDonateComponent } from './register_to_donate/RegisterToDonateComponent';
+import { RegisterToDonateComponent } from './register-to-donate/RegisterToDonateComponent';
+import { DonatedBloodComponent } from './donated-blood/DonatedBloodComponent';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
               <Route path="list-post" element={<ListPostComponent />} />
               <Route path="detail/:key" element={<PostDetailComponent />} />
               <Route path="register-post/:key" element={<RegisterToDonateComponent />} />
+              <Route path="donated" element={<DonatedBloodComponent /> } />
             </Routes>
           </header>
         </div>{" "}
