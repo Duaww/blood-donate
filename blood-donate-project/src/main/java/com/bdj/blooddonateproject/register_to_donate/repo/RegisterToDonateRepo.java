@@ -1,5 +1,7 @@
 package com.bdj.blooddonateproject.register_to_donate.repo;
 
+import javax.transaction.Transactional;
+
 import com.bdj.blooddonateproject.register_to_donate.model.RegisterToDonate;
 
 import org.springframework.data.domain.Page;

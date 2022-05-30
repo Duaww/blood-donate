@@ -1,6 +1,5 @@
 package com.bdj.blooddonateproject.register_to_donate.dto;
 
-import com.bdj.blooddonateproject.hospital.dto.HospitalInfoDTO;
 import com.bdj.blooddonateproject.post_find_donator.dto.PostFindDonatorDTO;
 import com.bdj.blooddonateproject.register_to_donate.model.RegisterToDonate;
 import com.bdj.blooddonateproject.user.dto.DonatorInfoDTO;

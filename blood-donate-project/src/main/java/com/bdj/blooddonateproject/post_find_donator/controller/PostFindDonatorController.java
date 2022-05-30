@@ -56,7 +56,7 @@ public class PostFindDonatorController {
     }
 
     @GetMapping("/detail/{key}")
-    @PreAuthorize("hasRole('ROLE_HOSPITAL')")
+    @PreAuthorize("hasRole('ROLE_HOSPITAL') or hasRole('ROLE_DONATOR')")
     public ResponseEntity<?> getDetailPost(@PathVariable("key") Long key) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {

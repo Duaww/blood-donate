@@ -5,6 +5,8 @@ import com.bdj.blooddonateproject.enums.GroupBlood;
 
 public class DonatorInfoDTO {
 
+    private Long id;
+
     private String name;
 
     private Integer birthday;
@@ -16,6 +18,14 @@ public class DonatorInfoDTO {
     private GroupBlood blood;
 
     private String idCard;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return this.name;
@@ -69,6 +79,7 @@ public class DonatorInfoDTO {
     }
 
     public DonatorInfoDTO(Donator donator) {
+        this.id = donator.getId();
         this.name = donator.getName();
         this.birthday = donator.getBirthday();
         this.phone = donator.getPhone();
@@ -77,7 +88,9 @@ public class DonatorInfoDTO {
         this.idCard = donator.getIdCard();
     }
 
-    public DonatorInfoDTO(String name, Integer birthday, String phone, String email, GroupBlood blood, String idCard) {
+    public DonatorInfoDTO(Long id, String name, Integer birthday, String phone, String email, GroupBlood blood,
+            String idCard) {
+        this.id = id;
         this.name = name;
         this.birthday = birthday;
         this.phone = phone;

@@ -1,5 +1,8 @@
 package com.bdj.blooddonateproject.register_to_donate.controller;
 
+import java.util.Date;
+
+import com.bdj.blooddonateproject.register_to_donate.dto.RegisterToDonateCreateDTO;
 import com.bdj.blooddonateproject.register_to_donate.dto.RegisterToDonateDTO;
 import com.bdj.blooddonateproject.register_to_donate.service.RegisterToDonateService;
 
@@ -13,6 +16,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,6 +42,24 @@ public class RegisterToDonateController {
             return new ResponseEntity<Page<RegisterToDonateDTO>>(listRegister, HttpStatus.OK);
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("please login");
+    }
+
+    @PostMapping("")
+    @PreAuthorize("hasRole('ROLE_DONATOR')")
+    public ResponseEntity<?> registerToDonate(@RequestBody RegisterToDonateCreateDTO donateCreateDTO) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            try {
+                registerToDonateService.registerToDonate((int) (new Date().getTime() / 1000),
+                        donateCreateDTO.getPostId(), donateCreateDTO.getDonatorId());
+            } catch (Exception e) {
+                // TODO: handle exception
+                return ResponseEntity.badRequest().body("error: " + e.getMessage());
+            }
+            return ResponseEntity.ok().body("message: " + "REGISTER SUCCESS");
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("please login");
+
     }
 
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/constant/role.dart';
+import 'package:mobile/constant/util.dart';
 import 'package:mobile/jwt/TokenService.dart';
 import 'package:mobile/login/service/LoginSerivce.dart';
 import 'package:mobile/profile/component/ProfileScreen.dart';
@@ -79,6 +80,7 @@ class _LoginScreen extends State<LoginScreen> {
                         LoginService.login(
                                 nameController.text, passwordController.text)
                             .then((res) => {
+                                  Util.token = res.data,
                                   token = res.data,
                                   roleOfUser =
                                       TokenSerivce.decode(token)["authorities"]
@@ -93,7 +95,7 @@ class _LoginScreen extends State<LoginScreen> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  ProfileScreen(token: token))),
+                                                  ProfileScreen())),
                                     }
                                   else
                                     {
