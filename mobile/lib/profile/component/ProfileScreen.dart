@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/constant/util.dart';
+import 'package:mobile/list_hospital/component/ListHopitalScreen.dart';
 import 'package:mobile/post_find_donate/component/PostFindDonateScreen.dart';
 import 'package:mobile/profile/service/ProfileService.dart';
 
@@ -52,12 +53,12 @@ class _ProfileScreen extends State<ProfileScreen> {
           )),
           Container(
               child: ElevatedButton(
-            child: const Text('Post Detail'),
+            child: const Text('List Hospital'),
             onPressed: (() => {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => PostFindDonateScreen())),
+                          builder: (context) => ListHospitalScreen())),
                 }),
           ))
         ],

@@ -5,10 +5,11 @@ import 'package:mobile/constant/enviroment.dart';
 import 'package:mobile/constant/util.dart';
 
 class PostFindDonateService {
-  static Dio _dio = new Dio();
+  static final Dio _dio = Dio();
 
-  static String _BASE_POST_URL = Enviroment.BASE_URL + "/api/post";
-  static String _BASE_REGISTER_URL = Enviroment.BASE_URL + "/api/register-post";
+  static final String _BASE_POST_URL = Enviroment.BASE_URL + "/api/post";
+  static final String _BASE_REGISTER_URL =
+      Enviroment.BASE_URL + "/api/register-post";
 
   static Future<Response> getDetailPost(key) async {
     Response response;
@@ -35,6 +36,27 @@ class PostFindDonateService {
     try {
       response = await _dio.post(
         _BASE_REGISTER_URL,
+        data: jsonEncode(requestBody),
+        options: Options(
+            contentType: Headers.jsonContentType,
+            responseType: ResponseType.json,
+            headers: {"Authorization": "Token " + Util.token}),
+      );
+    } on DioError catch (e) {
+      throw Exception(e.response?.statusCode);
+    }
+    return response;
+  }
+
+  static Future<Response> cancelToDonate(int idPost, int donatorId) async {
+    Response response;
+    var requestBody = {
+      "postId": idPost,
+      "donatorId": donatorId,
+    };
+    try {
+      response = await _dio.post(
+        _BASE_REGISTER_URL + "/cancel",
         data: jsonEncode(requestBody),
         options: Options(
             contentType: Headers.jsonContentType,

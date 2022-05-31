@@ -47,4 +47,20 @@ public class RegisterToDonateServiceImpl implements RegisterToDonateService {
         registerToDonateRepo.save(registerToDonate);
     }
 
+    @Override
+    public void cancelToDonate(Long postId, Long donatorId) {
+        // TODO Auto-generated method stub
+        RegisterToDonate registerToDonate = getRegisterByPostAndDonatorId(postId, donatorId);
+        registerToDonateRepo.delete(registerToDonate);
+
+    }
+
+    @Override
+    public RegisterToDonate getRegisterByPostAndDonatorId(Long postId, Long donatorId) {
+        // TODO Auto-generated method stub
+        RegisterToDonate registerToDonate = registerToDonateRepo.getRegisterByPostAndDonatorId(postId, donatorId)
+                .orElseThrow(() -> new IllegalStateException("register to donate not found"));
+        return registerToDonate;
+    }
+
 }

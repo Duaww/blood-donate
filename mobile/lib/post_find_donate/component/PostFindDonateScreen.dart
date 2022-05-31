@@ -4,23 +4,27 @@ import 'package:mobile/constant/util.dart';
 import 'package:mobile/post_find_donate/service/PostFindDonateService.dart';
 
 class PostFindDonateScreen extends StatefulWidget {
-  const PostFindDonateScreen({Key? key}) : super(key: key);
+  final int id;
+  const PostFindDonateScreen({Key? key, required this.id}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
-    return _PostFindDonateScreen();
+    return _PostFindDonateScreen(id);
   }
 }
 
 class _PostFindDonateScreen extends State<PostFindDonateScreen> {
+  final int idPost;
+  _PostFindDonateScreen(this.idPost);
+
   String content = "";
   int deadlineRegister = 0;
   int createAt = 0;
   int updateAt = 0;
-  int postId = 1;
+
   @override
   void initState() {
     super.initState();
-    PostFindDonateService.getDetailPost(postId.toString())
+    PostFindDonateService.getDetailPost(idPost.toString())
         .then((res) => {
               setState(() => {
                     content = res.data["content"],
@@ -47,12 +51,27 @@ class _PostFindDonateScreen extends State<PostFindDonateScreen> {
             child: ElevatedButton(
           child: const Text('Register'),
           onPressed: (() => {
-                PostFindDonateService.registerToDonate(postId, Util.donatorId)
+                PostFindDonateService.registerToDonate(idPost, Util.donatorId)
                     .then((res) => {
                           showModal(context, "Register donate", 'SUCCESS'),
                         })
                     .catchError((error) => {
                           showModal(context, "Register donate", 'FAILED'),
+                        }),
+              }),
+        )),
+        Container(
+            child: ElevatedButton(
+          child: const Text('Cancel Register'),
+          onPressed: (() => {
+                PostFindDonateService.cancelToDonate(idPost, Util.donatorId)
+                    .then((res) => {
+                          showModal(
+                              context, "Cancel Register donate", 'SUCCESS'),
+                        })
+                    .catchError((error) => {
+                          showModal(
+                              context, "Cancel Register donate", 'FAILED'),
                         }),
               }),
         )),

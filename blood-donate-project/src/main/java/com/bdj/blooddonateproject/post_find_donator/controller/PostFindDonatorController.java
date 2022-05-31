@@ -52,7 +52,16 @@ public class PostFindDonatorController {
             return new ResponseEntity<Page<PostFindDonatorDTO>>(listPost, HttpStatus.OK);
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("please login");
+    }
 
+    @GetMapping("/{hospitalId}")
+    public ResponseEntity<?> getListPostByHospitalId(@PathVariable("hospitalId") Long hospitalId, Pageable pageable) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            Page<PostFindDonatorDTO> listPost = postFindDonatorService.listPostFindDonator(hospitalId, pageable);
+            return new ResponseEntity<Page<PostFindDonatorDTO>>(listPost, HttpStatus.OK);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("please login");
     }
 
     @GetMapping("/detail/{key}")

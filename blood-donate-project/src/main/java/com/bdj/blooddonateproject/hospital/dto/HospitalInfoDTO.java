@@ -3,9 +3,19 @@ package com.bdj.blooddonateproject.hospital.dto;
 import com.bdj.blooddonateproject.hospital.model.Hospital;
 
 public class HospitalInfoDTO {
+
+    private Long id;
     private String name;
 
     private String address;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return this.name;
@@ -27,11 +37,13 @@ public class HospitalInfoDTO {
     }
 
     public HospitalInfoDTO(Hospital hospital) {
+        this.id = hospital.getId();
         this.name = hospital.getName();
         this.address = hospital.getAddress();
     }
 
-    public HospitalInfoDTO(String name, String address) {
+    public HospitalInfoDTO(Long id, String name, String address) {
+        this.id = id;
         this.name = name;
         this.address = address;
     }

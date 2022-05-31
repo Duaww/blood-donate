@@ -59,7 +59,22 @@ public class RegisterToDonateController {
             return ResponseEntity.ok().body("message: " + "REGISTER SUCCESS");
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("please login");
+    }
 
+    @PostMapping("/cancel")
+    @PreAuthorize("hasRole('ROLE_DONATOR')")
+    public ResponseEntity<?> cancelToDonate(@RequestBody RegisterToDonateCreateDTO donateCreateDTO) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            try {
+                registerToDonateService.cancelToDonate(donateCreateDTO.getPostId(), donateCreateDTO.getDonatorId());
+            } catch (Exception e) {
+                // TODO: handle exception
+                return ResponseEntity.badRequest().body("error: " + e.getMessage());
+            }
+            return ResponseEntity.ok().body("message: " + "CANCEL SUCCESS");
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("please login");
     }
 
 }
