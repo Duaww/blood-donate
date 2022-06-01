@@ -8,4 +8,7 @@ import org.springframework.data.domain.Pageable;
 public interface DonatedBloodService {
 
     Page<DonatedBloodDTO> getListDonatorByHospitalId(Long hospitalId, Pageable pageable);
+
+    Page<DonatedBloodDTO> getHistoryDonate(Long donatorId, Pageable pageable);
+
 }

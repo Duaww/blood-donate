@@ -24,4 +24,10 @@ public class DonatedBloodServiceImpl implements DonatedBloodService {
         return donatedBloodRepo.getListDonatorByHospitalId(hospitalId, pageable).map(DonatedBloodDTO::new);
     }
 
+    @Override
+    public Page<DonatedBloodDTO> getHistoryDonate(Long donatorId, Pageable pageable) {
+        // TODO Auto-generated method stub
+        return donatedBloodRepo.getHistoryDonated(donatorId, pageable).map(DonatedBloodDTO::new);
+    }
+
 }

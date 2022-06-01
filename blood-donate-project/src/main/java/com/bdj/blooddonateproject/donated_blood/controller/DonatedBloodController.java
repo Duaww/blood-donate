@@ -3,6 +3,8 @@ package com.bdj.blooddonateproject.donated_blood.controller;
 import com.bdj.blooddonateproject.config.UserPrincipal;
 import com.bdj.blooddonateproject.donated_blood.dto.DonatedBloodDTO;
 import com.bdj.blooddonateproject.donated_blood.service.DonatedBloodService;
+import com.bdj.blooddonateproject.donator.model.Donator;
+import com.bdj.blooddonateproject.donator.service.DonatorService;
 import com.bdj.blooddonateproject.hospital.model.Hospital;
 import com.bdj.blooddonateproject.hospital.service.HospitalService;
 
@@ -29,9 +31,14 @@ public class DonatedBloodController {
     @Autowired
     private HospitalService hospitalService;
 
-    public DonatedBloodController(DonatedBloodService donatedBloodService, HospitalService hospitalService) {
+    @Autowired
+    private DonatorService donatorService;
+
+    public DonatedBloodController(DonatedBloodService donatedBloodService, HospitalService hospitalService,
+            DonatorService donatorService) {
         this.donatedBloodService = donatedBloodService;
         this.hospitalService = hospitalService;
+        this.donatorService = donatorService;
     }
 
     @GetMapping("")
@@ -46,6 +53,22 @@ public class DonatedBloodController {
                     pageable);
 
             return new ResponseEntity<Page<DonatedBloodDTO>>(listDonator, HttpStatus.OK);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("please login");
+
+    }
+
+    @GetMapping("/history")
+    @PreAuthorize("hasRole('ROLE_DONATOR')")
+    public ResponseEntity<?> getHistoryDonated(Pageable pageable) {
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            UserPrincipal userPrincipal = (UserPrincipal) principal;
+            Donator donator = donatorService.findInfoDonator(userPrincipal.getUsername());
+            Page<DonatedBloodDTO> history = donatedBloodService.getHistoryDonate(donator.getId(), pageable);
+
+            return new ResponseEntity<Page<DonatedBloodDTO>>(history, HttpStatus.OK);
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("please login");
 

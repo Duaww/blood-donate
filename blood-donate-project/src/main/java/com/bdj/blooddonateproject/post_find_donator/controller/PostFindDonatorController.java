@@ -1,6 +1,11 @@
 package com.bdj.blooddonateproject.post_find_donator.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.bdj.blooddonateproject.config.UserPrincipal;
+import com.bdj.blooddonateproject.firebase.model.Note;
+import com.bdj.blooddonateproject.firebase.service.FirebaseMessagingService;
 import com.bdj.blooddonateproject.hospital.model.Hospital;
 import com.bdj.blooddonateproject.hospital.service.HospitalService;
 import com.bdj.blooddonateproject.post_find_donator.dto.CreatePostDTO;
@@ -34,9 +39,14 @@ public class PostFindDonatorController {
     @Autowired
     private HospitalService hospitalService;
 
-    public PostFindDonatorController(PostFindDonatorService postFindDonatorService, HospitalService hospitalService) {
+    @Autowired
+    private FirebaseMessagingService firebaseMessagingService;
+
+    public PostFindDonatorController(PostFindDonatorService postFindDonatorService, HospitalService hospitalService,
+            FirebaseMessagingService firebaseMessagingService) {
         this.postFindDonatorService = postFindDonatorService;
         this.hospitalService = hospitalService;
+        this.firebaseMessagingService = firebaseMessagingService;
     }
 
     @GetMapping("/my-post")
@@ -90,6 +100,13 @@ public class PostFindDonatorController {
             Hospital hospital = hospitalService.findInfoHospital(userPrincipal.getUsername());
             try {
                 postFindDonatorService.createNewPost(newPost, hospital);
+                String deviceToken = "cx7DndqrTxi4OP-VOPv7s9:APA91bGm9F56HLjqFAuUEgwZjNFyUESQ1T6TqaSZafgVvpnY3M3R3MAuZ8v5pAgwdae1QPrZNb-g7ncMVBSwB3PcwNCrznySPOs2HbOHbiJ6NUimF0ENN-e62kugj_oANPqV8moNUHq3";
+                String subject = "New post";
+                String content = "Do you want to register to donate blood ?";
+                Map<String, String> data = new HashMap<String, String>();
+                data.put("postId", "heheheh");
+                Note note = new Note(subject, content, data);
+                firebaseMessagingService.sendNotification(note, deviceToken);
 
             } catch (Exception e) {
                 // TODO: handle exception

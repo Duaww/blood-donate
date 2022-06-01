@@ -14,4 +14,7 @@ public interface DonatedBloodRepo extends JpaRepository<DonatedBlood, Long> {
     @Query(value = "SELECT * FROM v1.donated_blood WHERE hospital_id = :hospitalId", nativeQuery = true)
     Page<DonatedBlood> getListDonatorByHospitalId(Long hospitalId, Pageable pageable);
 
+    @Query(value = "SELECT * FROM v1.donated_blood WHERE donator_id = :donatorId ORDER BY time_donated DESC", nativeQuery = true)
+    Page<DonatedBlood> getHistoryDonated(Long donatorId, Pageable pageable);
+
 }
