@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 public interface RegisterToDonateService {
     Page<RegisterToDonateDTO> listDonatorRegisterPost(Long postId, Pageable pageable);
 
-    void registerToDonate(Integer timeRegister, Long postId, Long donatorId);
+    void registerToDonate(Integer timeRegister, Long postId, Long donatorId) throws Exception;
 
     void cancelToDonate(Long postId, Long donatorId);
 

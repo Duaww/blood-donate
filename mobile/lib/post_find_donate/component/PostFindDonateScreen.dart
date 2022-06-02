@@ -50,7 +50,7 @@ class _PostFindDonateScreen extends State<PostFindDonateScreen> {
         Container(
             child: ElevatedButton(
           child: const Text('Register'),
-          onPressed: (() => {
+          onPressed: ( () =>  {
                 PostFindDonateService.registerToDonate(idPost, Util.donatorId)
                     .then((res) => {
                           showModal(context, "Register donate", 'SUCCESS'),

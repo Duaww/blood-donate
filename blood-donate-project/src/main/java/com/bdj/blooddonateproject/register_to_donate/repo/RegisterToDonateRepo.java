@@ -21,4 +21,7 @@ public interface RegisterToDonateRepo extends JpaRepository<RegisterToDonate, Lo
     @Query(value = "SELECT * FROM v1.register_to_donate WHERE post_id = :postId AND donator_id = :donatorId", nativeQuery = true)
     Optional<RegisterToDonate> getRegisterByPostAndDonatorId(Long postId, Long donatorId);
 
+    @Query(value = "SELECT * FROM v1.register_to_donate WHERE post_id = :postId AND donator_id = :donatorId", nativeQuery = true)
+    RegisterToDonate getRegister(Long postId, Long donatorId);
+
 }

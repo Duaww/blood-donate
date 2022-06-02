@@ -30,7 +30,7 @@ public class PostFindDonatorServiceImpl implements PostFindDonatorService {
     }
 
     @Override
-    public void createNewPost(CreatePostDTO createPostDTO, Hospital hospital) {
+    public PostFindDonator createNewPost(CreatePostDTO createPostDTO, Hospital hospital) {
         // TODO Auto-generated method stub
 
         PostFindDonator postFindDonator = new PostFindDonator();
@@ -40,7 +40,8 @@ public class PostFindDonatorServiceImpl implements PostFindDonatorService {
         postFindDonator.setCreateAt((int) (new Date().getTime() / 1000));
         postFindDonator.setUpdateAt((int) (new Date().getTime() / 1000));
         postFindDonator.setIsDeleted(false);
-        postFindDonatorRepo.saveAndFlush(postFindDonator);
+        postFindDonatorRepo.save(postFindDonator);
+        return postFindDonator;
     }
 
     @Override

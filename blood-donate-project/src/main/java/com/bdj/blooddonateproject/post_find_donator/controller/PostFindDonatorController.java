@@ -10,6 +10,7 @@ import com.bdj.blooddonateproject.hospital.model.Hospital;
 import com.bdj.blooddonateproject.hospital.service.HospitalService;
 import com.bdj.blooddonateproject.post_find_donator.dto.CreatePostDTO;
 import com.bdj.blooddonateproject.post_find_donator.dto.PostFindDonatorDTO;
+import com.bdj.blooddonateproject.post_find_donator.model.PostFindDonator;
 import com.bdj.blooddonateproject.post_find_donator.service.PostFindDonatorService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,12 +100,12 @@ public class PostFindDonatorController {
             UserPrincipal userPrincipal = (UserPrincipal) principal;
             Hospital hospital = hospitalService.findInfoHospital(userPrincipal.getUsername());
             try {
-                postFindDonatorService.createNewPost(newPost, hospital);
+                PostFindDonator postFindDonator = postFindDonatorService.createNewPost(newPost, hospital);
                 String deviceToken = "cx7DndqrTxi4OP-VOPv7s9:APA91bGm9F56HLjqFAuUEgwZjNFyUESQ1T6TqaSZafgVvpnY3M3R3MAuZ8v5pAgwdae1QPrZNb-g7ncMVBSwB3PcwNCrznySPOs2HbOHbiJ6NUimF0ENN-e62kugj_oANPqV8moNUHq3";
                 String subject = "New post";
                 String content = "Do you want to register to donate blood ?";
                 Map<String, String> data = new HashMap<String, String>();
-                data.put("postId", "heheheh");
+                data.put("postId", postFindDonator.getId().toString());
                 Note note = new Note(subject, content, data);
                 firebaseMessagingService.sendNotification(note, deviceToken);
 

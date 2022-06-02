@@ -5,6 +5,8 @@ import 'package:mobile/jwt/TokenService.dart';
 import 'package:mobile/login/service/LoginSerivce.dart';
 import 'package:mobile/profile/component/ProfileScreen.dart';
 
+import '../../post_find_donate/component/PostFindDonateScreen.dart';
+
 class LoginScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -91,11 +93,29 @@ class _LoginScreen extends State<LoginScreen> {
                                           .split(".")
                                           .last)
                                     {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ProfileScreen())),
+                                      if (Util.postIdNotification != "")
+                                        {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ProfileScreen())),
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      (PostFindDonateScreen(
+                                                          id: int.parse(Util
+                                                              .postIdNotification))))),
+                                        }
+                                      else
+                                        {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ProfileScreen())),
+                                        }
                                     }
                                   else
                                     {

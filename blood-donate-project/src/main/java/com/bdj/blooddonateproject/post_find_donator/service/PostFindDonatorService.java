@@ -12,7 +12,7 @@ public interface PostFindDonatorService {
 
     Page<PostFindDonatorDTO> listPostFindDonator(Long id, Pageable pageable);
 
-    void createNewPost(CreatePostDTO createPostDTO, Hospital hospital);
+    PostFindDonator createNewPost(CreatePostDTO createPostDTO, Hospital hospital);
 
     PostFindDonatorDTO getPostFindDonator(Long id);
 

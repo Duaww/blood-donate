@@ -1,3 +1,3 @@
 class Enviroment {
-  static String BASE_URL = "http://192.168.1.7:8080";
+  static String BASE_URL = "http://192.168.1.17:8080";
 }

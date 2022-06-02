@@ -37,14 +37,19 @@ public class RegisterToDonateServiceImpl implements RegisterToDonateService {
     }
 
     @Override
-    public void registerToDonate(Integer timeRegister, Long postId, Long donatorId) {
+    public void registerToDonate(Integer timeRegister, Long postId, Long donatorId) throws Exception {
 
-        RegisterToDonate registerToDonate = new RegisterToDonate();
+        RegisterToDonate registerToDonate = registerToDonateRepo.getRegister(postId, donatorId);
+        if (registerToDonate != null) {
+            throw new Exception("This post is registered");
+        }
 
-        registerToDonate.setTimeRegister(timeRegister);
-        registerToDonate.setDonator(donatorRepo.getById(donatorId));
-        registerToDonate.setPost(postFindDonatorRepo.getById(postId));
-        registerToDonateRepo.save(registerToDonate);
+        RegisterToDonate newRegiter = new RegisterToDonate();
+
+        newRegiter.setTimeRegister(timeRegister);
+        newRegiter.setDonator(donatorRepo.getById(donatorId));
+        newRegiter.setPost(postFindDonatorRepo.getById(postId));
+        registerToDonateRepo.save(newRegiter);
     }
 
     @Override

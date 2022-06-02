@@ -43,7 +43,7 @@ class PostFindDonateService {
             headers: {"Authorization": "Token " + Util.token}),
       );
     } on DioError catch (e) {
-      throw Exception(e.response?.statusCode);
+      throw Future.error(e.message);
     }
     return response;
   }
