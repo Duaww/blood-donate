@@ -11,6 +11,14 @@ class DonatedBloodService {
         };
         return axios.get(BASE_DONATED_URI, { headers: headers, params: pageable });
     }
+
+    getListDonatedWithFilter(token, pageable, filter) {
+        const author = "Token " + token;
+        const headers = {
+            'Authorization': author
+        };
+        return axios.post(BASE_DONATED_URI, filter, { headers: headers, params: pageable });
+    } 
 }
 
 export default new DonatedBloodService();

@@ -7,6 +7,8 @@ export const DonatedBloodComponent = () => {
     
     const [token, setToken] = useState("");
     const [listDonator, setListDonator] = useState([]);
+    const [nameFilter, setNameFilter] = useState("");
+    const [bloodFilter, setBloodFilter] = useState("");
     const navigate = useNavigate();
 
 
@@ -29,12 +31,10 @@ export const DonatedBloodComponent = () => {
             page: 1,
             size: 10
         };
-        console.log(token)
         DonatedBloodService.getListDonatorSeflHospital(token, pageable)
             .then((res) => {
                 let listDonator = res.data.content;
                 setListDonator(listDonator);
-                console.log(listDonator);
             })
             .catch((error) => {
                 console.log(error);
@@ -50,9 +50,45 @@ export const DonatedBloodComponent = () => {
         navigate(-1);
     }
 
+    function search() {
+        let pageable = {
+            page: 1,
+            size: 10
+        };
+        let requestBody = {
+            name: nameFilter,
+            blood: bloodFilter.split(":")
+        };
+
+        console.log(requestBody);
+
+        DonatedBloodService.getListDonatedWithFilter(token, pageable, requestBody)
+            .then((res) => {
+                let listDonator = res.data.content;
+                setListDonator(listDonator);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
     return (
         <div>
             listDonator
+            <div>
+                <label>Name:</label>
+                <input type="text" id="" name="" value={nameFilter}  onChange={(e) => setNameFilter(e.target.value)} />
+                <label>Blood group :</label>
+                <select id="blood" value={bloodFilter} onChange={(e) => setBloodFilter(e.target.value)} >
+                    <option value="O:A:B:AB" selected>All</option>
+                    <option value="O">O</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="AB">AB</option>
+                </select>
+                {/* <input type="text" id="" name="" value={bloodFilter} onChange={(e) => setBloodFilter(e.target.value)} /> */}
+                <input type="button" value="Search" onClick={() => search()} />
+            </div>
             {listDonator.map((donator, index) => (
                 <div key={index}>
                     <p>

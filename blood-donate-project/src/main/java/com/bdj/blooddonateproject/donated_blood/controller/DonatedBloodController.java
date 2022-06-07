@@ -2,6 +2,7 @@ package com.bdj.blooddonateproject.donated_blood.controller;
 
 import com.bdj.blooddonateproject.config.UserPrincipal;
 import com.bdj.blooddonateproject.donated_blood.dto.DonatedBloodDTO;
+import com.bdj.blooddonateproject.donated_blood.dto.FilterDonatedDTO;
 import com.bdj.blooddonateproject.donated_blood.service.DonatedBloodService;
 import com.bdj.blooddonateproject.donator.model.Donator;
 import com.bdj.blooddonateproject.donator.service.DonatorService;
@@ -18,6 +19,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -55,7 +58,22 @@ public class DonatedBloodController {
             return new ResponseEntity<Page<DonatedBloodDTO>>(listDonator, HttpStatus.OK);
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("please login");
+    }
 
+    @PostMapping("")
+    @PreAuthorize("hasRole('ROLE_HOSPITAL')")
+    public ResponseEntity<?> getListDonatedWithFilter(@RequestBody FilterDonatedDTO donatedDTO, Pageable pageable) {
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            UserPrincipal userPrincipal = (UserPrincipal) principal;
+            Hospital hospital = hospitalService.findInfoHospital(userPrincipal.getUsername());
+            Page<DonatedBloodDTO> listDonator = donatedBloodService.getListDonatedWithFilter(hospital.getId(),
+                    donatedDTO, pageable);
+
+            return new ResponseEntity<Page<DonatedBloodDTO>>(listDonator, HttpStatus.OK);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("please login");
     }
 
     @GetMapping("/history")
