@@ -1,5 +1,6 @@
 package com.bdj.blooddonateproject.register_to_donate.service;
 
+import com.bdj.blooddonateproject.donated_blood.dto.FilterDonatedDTO;
 import com.bdj.blooddonateproject.register_to_donate.dto.RegisterToDonateDTO;
 import com.bdj.blooddonateproject.register_to_donate.model.RegisterToDonate;
 
@@ -14,4 +15,7 @@ public interface RegisterToDonateService {
     void cancelToDonate(Long postId, Long donatorId);
 
     RegisterToDonate getRegisterByPostAndDonatorId(Long postId, Long donatorId);
+
+    Page<RegisterToDonateDTO> listDonatorRegisterPostWithFilter(Long postId, FilterDonatedDTO donatedDTO,
+            Pageable pageable);
 }

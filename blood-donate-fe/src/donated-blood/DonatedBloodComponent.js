@@ -86,7 +86,6 @@ export const DonatedBloodComponent = () => {
                     <option value="B">B</option>
                     <option value="AB">AB</option>
                 </select>
-                {/* <input type="text" id="" name="" value={bloodFilter} onChange={(e) => setBloodFilter(e.target.value)} /> */}
                 <input type="button" value="Search" onClick={() => search()} />
             </div>
             {listDonator.map((donator, index) => (

@@ -2,6 +2,7 @@ package com.bdj.blooddonateproject.register_to_donate.controller;
 
 import java.util.Date;
 
+import com.bdj.blooddonateproject.donated_blood.dto.FilterDonatedDTO;
 import com.bdj.blooddonateproject.register_to_donate.dto.RegisterToDonateCreateDTO;
 import com.bdj.blooddonateproject.register_to_donate.dto.RegisterToDonateDTO;
 import com.bdj.blooddonateproject.register_to_donate.service.RegisterToDonateService;
@@ -39,6 +40,20 @@ public class RegisterToDonateController {
         if (principal instanceof UserDetails) {
 
             Page<RegisterToDonateDTO> listRegister = registerToDonateService.listDonatorRegisterPost(postId, pageable);
+            return new ResponseEntity<Page<RegisterToDonateDTO>>(listRegister, HttpStatus.OK);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("please login");
+    }
+
+    @PostMapping("/{postId}")
+    @PreAuthorize("hasRole('ROLE_HOSPITAL')")
+    public ResponseEntity<?> getListRegisterDonatorWithFilter(@PathVariable("postId") Long postId,
+            @RequestBody FilterDonatedDTO donatedDTO, Pageable pageable) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+
+            Page<RegisterToDonateDTO> listRegister = registerToDonateService.listDonatorRegisterPostWithFilter(postId,
+                    donatedDTO, pageable);
             return new ResponseEntity<Page<RegisterToDonateDTO>>(listRegister, HttpStatus.OK);
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("please login");

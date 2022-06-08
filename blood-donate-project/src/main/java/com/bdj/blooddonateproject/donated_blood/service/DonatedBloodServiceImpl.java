@@ -44,7 +44,6 @@ public class DonatedBloodServiceImpl implements DonatedBloodService {
         for (int i = 0; i < listBlood.size(); i++) {
             convert.add(listBlood.get(i).name());
         }
-        System.out.println(convert);
         return donatedBloodRepo.getListDonatedWithFilter(id, donatedDTO.getName(), convert, pageable)
                 .map(DonatedBloodDTO::new);
     }

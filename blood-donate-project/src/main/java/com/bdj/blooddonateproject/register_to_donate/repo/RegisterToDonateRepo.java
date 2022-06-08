@@ -1,5 +1,6 @@
 package com.bdj.blooddonateproject.register_to_donate.repo;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -23,5 +24,9 @@ public interface RegisterToDonateRepo extends JpaRepository<RegisterToDonate, Lo
 
     @Query(value = "SELECT * FROM v1.register_to_donate WHERE post_id = :postId AND donator_id = :donatorId", nativeQuery = true)
     RegisterToDonate getRegister(Long postId, Long donatorId);
+
+    @Query(value = "SELECT rtd.* FROM  v1.register_to_donate rtd INNER JOIN v1.donator d ON d.id = rtd.donator_id WHERE rtd.post_id = :postId AND d.name ILIKE %:nameFilter% AND d.blood IN (:groupBlood) ORDER BY time_register DESC", nativeQuery = true)
+    Page<RegisterToDonate> getListDonatedWithFilter(Long postId, String nameFilter, List<String> groupBlood,
+            Pageable pageable);
 
 }

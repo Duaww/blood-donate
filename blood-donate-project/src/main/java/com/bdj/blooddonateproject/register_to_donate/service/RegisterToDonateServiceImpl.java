@@ -1,10 +1,15 @@
 package com.bdj.blooddonateproject.register_to_donate.service;
 
+import com.bdj.blooddonateproject.donated_blood.dto.FilterDonatedDTO;
 import com.bdj.blooddonateproject.donator.repo.DonatorRepo;
+import com.bdj.blooddonateproject.enums.GroupBlood;
 import com.bdj.blooddonateproject.post_find_donator.repo.PostFindDonatorRepo;
 import com.bdj.blooddonateproject.register_to_donate.dto.RegisterToDonateDTO;
 import com.bdj.blooddonateproject.register_to_donate.model.RegisterToDonate;
 import com.bdj.blooddonateproject.register_to_donate.repo.RegisterToDonateRepo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -66,6 +71,19 @@ public class RegisterToDonateServiceImpl implements RegisterToDonateService {
         RegisterToDonate registerToDonate = registerToDonateRepo.getRegisterByPostAndDonatorId(postId, donatorId)
                 .orElseThrow(() -> new IllegalStateException("register to donate not found"));
         return registerToDonate;
+    }
+
+    @Override
+    public Page<RegisterToDonateDTO> listDonatorRegisterPostWithFilter(Long postId, FilterDonatedDTO donatedDTO,
+            Pageable pageable) {
+        // TODO Auto-generated method stub
+        List<String> convert = new ArrayList<String>();
+        List<GroupBlood> listBlood = donatedDTO.getBlood();
+        for (int i = 0; i < listBlood.size(); i++) {
+            convert.add(listBlood.get(i).name());
+        }
+        return registerToDonateRepo.getListDonatedWithFilter(postId, donatedDTO.getName(), convert, pageable)
+                .map(RegisterToDonateDTO::new);
     }
 
 }
