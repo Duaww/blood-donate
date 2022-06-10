@@ -1,9 +1,12 @@
+// ignore_for_file: unnecessary_new
+
 import 'package:flutter/material.dart';
 import 'package:mobile/constant/role.dart';
 import 'package:mobile/constant/util.dart';
 import 'package:mobile/jwt/TokenService.dart';
 import 'package:mobile/login/service/LoginSerivce.dart';
 import 'package:mobile/profile/component/ProfileScreen.dart';
+import 'package:mobile/sign_up/component/SignUpScreen.dart';
 
 import '../../post_find_donate/component/PostFindDonateScreen.dart';
 
@@ -136,11 +139,14 @@ class _LoginScreen extends State<LoginScreen> {
                 const Text('Does not have account?'),
                 TextButton(
                   child: const Text(
-                    'Sign in',
+                    'Sign up',
                     style: TextStyle(fontSize: 20),
                   ),
                   onPressed: () {
-                    //signup screen
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SignUpScreen()));
                   },
                 )
               ],
@@ -159,7 +165,7 @@ class _LoginScreen extends State<LoginScreen> {
               content: new Text(content),
               actions: <Widget>[
                 new IconButton(
-                    icon: new Icon(Icons.close),
+                    icon: const Icon(Icons.close),
                     onPressed: () {
                       Navigator.pop(context);
                     })

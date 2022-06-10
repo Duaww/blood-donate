@@ -65,6 +65,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: _title,
       home: Scaffold(
+        resizeToAvoidBottomInset: true,
         appBar: AppBar(title: const Text(_title)),
         body: LoginScreen(),
       ),

@@ -4,9 +4,11 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:mobile/constant/enviroment.dart';
 
+import '../../constant/util.dart';
+
 class LoginService {
-  static Dio _dio = new Dio();
-  static String _BASE_AUTH_URL = Enviroment.BASE_URL + "/api/auth";
+  static final Dio _dio = Dio();
+  static final String _BASE_AUTH_URL = Enviroment.BASE_URL + "/api/auth";
 
   static Future<Response> login(String username, String password) async {
     Response response;
@@ -20,6 +22,22 @@ class LoginService {
           options: Options(
             contentType: Headers.jsonContentType,
             responseType: ResponseType.json,
+          ));
+    } on DioError catch (e) {
+      throw Exception(e.response?.statusCode);
+    }
+    return response;
+  }
+
+  static Future<Response> logout(String token) async {
+    Response response;
+    try {
+      response = await _dio.post(_BASE_AUTH_URL + "/logout",
+          data: token,
+          options: Options(
+            contentType: Headers.jsonContentType,
+            responseType: ResponseType.json,
+            headers: {"Authorization": "Token " + Util.token},
           ));
     } on DioError catch (e) {
       throw Exception(e.response?.statusCode);

@@ -1,5 +1,7 @@
 package com.bdj.blooddonateproject.user.service;
 
+import com.bdj.blooddonateproject.donator.model.Donator;
+import com.bdj.blooddonateproject.donator.repo.DonatorRepo;
 import com.bdj.blooddonateproject.enums.RoleEnum;
 import com.bdj.blooddonateproject.user.dto.SignUpDTO;
 import com.bdj.blooddonateproject.user.model.User;
@@ -19,18 +21,20 @@ public class UserServiceImpl implements UserService {
     private UserRepo userRepo;
 
     @Autowired
+    private DonatorRepo donatorRepo;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepo userRepo) {
+    public UserServiceImpl(UserRepo userRepo, DonatorRepo donatorRepo, PasswordEncoder passwordEncoder) {
         this.userRepo = userRepo;
+        this.donatorRepo = donatorRepo;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public User registerNewUser(SignUpDTO request) {
         // TODO Auto-generated method stub
-        if (!request.getPassword().equals(request.getConfirmPassword())) {
-            throw new IllegalStateException("Confirm password not match");
-        }
         if (userRepo.findByUsername(request.getUsername()).isPresent()) {
             throw new IllegalStateException("name exist");
         }
@@ -39,7 +43,14 @@ public class UserServiceImpl implements UserService {
                 RoleEnum.ROLE_DONATOR);
         newUser.setUuid(UUID.randomUUID().toString());
         newUser.setIsDeleted(false);
-        return userRepo.saveAndFlush(newUser);
+        Donator newDonator = new Donator();
+        newDonator.setDonator(newUser);
+        newDonator.setName(request.getFullname());
+        newDonator.setIdCard(request.getidCard());
+        newDonator.setPhone(request.getPhone());
+        userRepo.saveAndFlush(newUser);
+        donatorRepo.saveAndFlush(newDonator);
+        return newUser;
     }
 
     @Override

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/constant/util.dart';
 import 'package:mobile/history/component/HistoryScreen.dart';
 import 'package:mobile/list_hospital/component/ListHopitalScreen.dart';
+import 'package:mobile/login/service/LoginSerivce.dart';
 import 'package:mobile/post_find_donate/component/PostFindDonateScreen.dart';
 import 'package:mobile/profile/service/ProfileService.dart';
 
@@ -48,8 +49,14 @@ class _ProfileScreen extends State<ProfileScreen> {
               child: ElevatedButton(
             child: const Text('Logout'),
             onPressed: (() => {
-                  Util.token = "",
-                  Navigator.pop(context),
+                  LoginService.logout(Util.token)
+                      .then((res) => {
+                            Util.token = "",
+                            Navigator.pop(context),
+                          })
+                      .catchError((error) => {
+                            print("have error"),
+                          }),
                 }),
           )),
           Container(

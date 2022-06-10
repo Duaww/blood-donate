@@ -3,8 +3,8 @@ import 'package:mobile/constant/enviroment.dart';
 import 'package:mobile/constant/util.dart';
 
 class ProfileService {
-  static Dio _dio = new Dio();
-  static String _BASE_PROFILE_URL =
+  static final Dio _dio = Dio();
+  static final String _BASE_PROFILE_URL =
       Enviroment.BASE_URL + "/api/user/my-profile";
 
   static Future<Response> getMyProfile() async {

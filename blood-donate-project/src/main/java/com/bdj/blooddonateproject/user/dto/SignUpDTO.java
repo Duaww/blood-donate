@@ -3,8 +3,10 @@ package com.bdj.blooddonateproject.user.dto;
 public class SignUpDTO {
 
     private String username;
+    private String fullname;
+    private String idCard;
+    private String phone;
     private String password;
-    private String confirmPassword;
 
     public String getUsername() {
         return this.username;
@@ -12,6 +14,30 @@ public class SignUpDTO {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getFullname() {
+        return this.fullname;
+    }
+
+    public void setFulllname(String fulllname) {
+        this.fullname = fulllname;
+    }
+
+    public String getidCard() {
+        return this.idCard;
+    }
+
+    public void setidCard(String idCard) {
+        this.idCard = idCard;
+    }
+
+    public String getPhone() {
+        return this.phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getPassword() {
@@ -22,21 +48,15 @@ public class SignUpDTO {
         this.password = password;
     }
 
-    public String getConfirmPassword() {
-        return this.confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
-
     public SignUpDTO() {
     }
 
-    public SignUpDTO(String username, String password, String confirmPassword) {
+    public SignUpDTO(String username, String fullname, String idCard, String phone, String password) {
         this.username = username;
+        this.fullname = fullname;
+        this.idCard = idCard;
+        this.phone = phone;
         this.password = password;
-        this.confirmPassword = confirmPassword;
     }
 
 }

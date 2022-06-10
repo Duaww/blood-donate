@@ -41,65 +41,68 @@ class _PostFindDonateScreen extends State<PostFindDonateScreen> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Container(
-      child: Column(children: [
-        Text(content),
-        Text(deadlineRegister.toString()),
-        Text(createAt.toString()),
-        Text(updateAt.toString()),
-        Container(
-            child: ElevatedButton(
-          child: const Text('Register'),
-          onPressed: ( () =>  {
-                PostFindDonateService.registerToDonate(idPost, Util.donatorId)
-                    .then((res) => {
-                          showModal(context, "Register donate", 'SUCCESS'),
-                        })
-                    .catchError((error) => {
-                          showModal(context, "Register donate", 'FAILED'),
-                        }),
-              }),
-        )),
-        Container(
-            child: ElevatedButton(
-          child: const Text('Cancel Register'),
-          onPressed: (() => {
-                PostFindDonateService.cancelToDonate(idPost, Util.donatorId)
-                    .then((res) => {
-                          showModal(
-                              context, "Cancel Register donate", 'SUCCESS'),
-                        })
-                    .catchError((error) => {
-                          showModal(
-                              context, "Cancel Register donate", 'FAILED'),
-                        }),
-              }),
-        )),
-        Container(
-            child: ElevatedButton(
-          child: const Text('Back'),
-          onPressed: (() => {
-                Navigator.pop(context),
-              }),
-        )),
-      ]),
-    );
+    return Column(children: [
+      Text(content),
+      Text(deadlineRegister.toString()),
+      Text(createAt.toString()),
+      Text(updateAt.toString()),
+      ElevatedButton(
+        child: const Text('Register'),
+        onPressed: (() => {
+              registerToDonate(context),
+            }),
+      ),
+      ElevatedButton(
+        child: const Text('Cancel Register'),
+        onPressed: (() => {
+              PostFindDonateService.cancelToDonate(idPost, Util.donatorId)
+                  .then((res) => {
+                        showModal(context, "Cancel Register donate", 'SUCCESS'),
+                      })
+                  .catchError((error) => {
+                        showModal(context, "Cancel Register donate", 'FAILED'),
+                      }),
+            }),
+      ),
+      ElevatedButton(
+        child: const Text('Back'),
+        onPressed: (() => {
+              Navigator.pop(context),
+            }),
+      ),
+    ]);
   }
 
   Future<dynamic> showModal(
       BuildContext context, String title, String content) {
     return showDialog(
         context: context,
-        builder: (BuildContext buiderContext) => new AlertDialog(
-              title: new Text(title),
-              content: new Text(content),
+        builder: (BuildContext buiderContext) => AlertDialog(
+              title: Text(title),
+              content: Text(content),
               actions: <Widget>[
-                new IconButton(
-                    icon: new Icon(Icons.close),
+                IconButton(
+                    icon: const Icon(Icons.close),
                     onPressed: () {
                       Navigator.pop(context);
                     })
               ],
             ));
+  }
+
+  void registerToDonate(BuildContext buildContext) {
+    int now = (DateTime.now().millisecondsSinceEpoch / 1000).round();
+    if (now > deadlineRegister) {
+      showModal(
+          context, "Registration timeout", "Registration period has expired");
+    } else {
+      PostFindDonateService.registerToDonate(idPost, Util.donatorId)
+          .then((res) => {
+                showModal(context, "Register donate", 'SUCCESS'),
+              })
+          .catchError((error) => {
+                showModal(context, "Register donate", 'FAILED'),
+              });
+    }
   }
 }
