@@ -10,6 +10,7 @@ import { RegisterToDonateComponent } from "./register-to-donate/RegisterToDonate
 import { DonatedBloodComponent } from "./donated-blood/DonatedBloodComponent";
 import { AdminComponent } from "./admin/AdminComponent";
 import { CreateHospitalComponent } from "./admin/CreateHospitalComponent";
+import { ListHospitalComponent } from "./admin/ListHostpital";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
                 path="create-hospital"
                 element={<CreateHospitalComponent />}
               />
+              <Route path="hospital" element={<ListHospitalComponent />} />
             </Routes>
           </header>
         </div>{" "}

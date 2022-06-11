@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Role } from "../common/Role";
+import TokenService from "../jwt/TokenService";
 import AdminService from "./AdminService";
 
 export const CreateHospitalComponent = (props) => {
@@ -10,7 +12,23 @@ export const CreateHospitalComponent = (props) => {
   const [address, setAddress] = useState("");
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
-  console.log(token);
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
+
+  function checkAuth() {
+    if (token == null) {
+      navigate("/");
+      return;
+    }
+    let info = TokenService.decode(token);
+    let authorizon = info["authorities"][0];
+    if (authorizon != Role.ADMIN) {
+      navigate("/auth-error");
+      return;
+    }
+  }
 
   function createHospital() {
     if (
