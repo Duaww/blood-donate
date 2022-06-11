@@ -1,11 +1,13 @@
 package com.bdj.blooddonateproject.user.controller;
 
+import com.bdj.blooddonateproject.admin.service.AdminService;
 import com.bdj.blooddonateproject.config.UserPrincipal;
 import com.bdj.blooddonateproject.donator.model.Donator;
 import com.bdj.blooddonateproject.donator.service.DonatorService;
 import com.bdj.blooddonateproject.enums.RoleEnum;
 import com.bdj.blooddonateproject.hospital.model.Hospital;
 import com.bdj.blooddonateproject.hospital.service.HospitalService;
+import com.bdj.blooddonateproject.user.dto.CreateHospitalDTO;
 import com.bdj.blooddonateproject.user.dto.DonatorInfoDTO;
 import com.bdj.blooddonateproject.user.dto.HospitalInfoDTO;
 import com.bdj.blooddonateproject.user.dto.SignUpDTO;
@@ -14,6 +16,7 @@ import com.bdj.blooddonateproject.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -36,10 +39,15 @@ public class UserController {
     @Autowired
     private HospitalService hospitalService;
 
-    public UserController(UserService userService, DonatorService donatorService, HospitalService hospitalService) {
+    @Autowired
+    private AdminService adminService;
+
+    public UserController(UserService userService, DonatorService donatorService, HospitalService hospitalService,
+            AdminService adminService) {
         this.userService = userService;
         this.donatorService = donatorService;
         this.hospitalService = hospitalService;
+        this.adminService = adminService;
     }
 
     @PostMapping("")
@@ -73,6 +81,22 @@ public class UserController {
                 // this is admin
                 return new ResponseEntity<UserPrincipal>(userPrincipal, HttpStatus.OK);
             }
+        }
+        return ResponseEntity.badRequest().body("please login");
+    }
+
+    @PostMapping("/create-hospital")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<?> createNewHospital(@RequestBody CreateHospitalDTO createHospitalDTO) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            try {
+                hospitalService.createNewHospital(createHospitalDTO);
+            } catch (Exception e) {
+                // TODO: handle exception
+                return ResponseEntity.badRequest().body("error: " + e.getMessage());
+            }
+            return ResponseEntity.ok().body("message: " + "create new hospital success");
         }
         return ResponseEntity.badRequest().body("please login");
     }

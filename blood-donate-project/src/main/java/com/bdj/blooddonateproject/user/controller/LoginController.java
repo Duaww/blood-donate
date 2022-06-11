@@ -53,6 +53,7 @@ public class LoginController {
         if (user == null || !new BCryptPasswordEncoder().matches(login.getPassword(), user.getPassword())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("user name or password incorrect");
         }
+        // userService.createAdmin();
         UserPrincipal userPrincipal = UserPrincipal.create(user);
         Token token = new Token();
         token.setToken(jwtUtil.generateToken(userPrincipal));

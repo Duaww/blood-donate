@@ -1,5 +1,7 @@
 package com.bdj.blooddonateproject.user.service;
 
+import com.bdj.blooddonateproject.admin.model.Admin;
+import com.bdj.blooddonateproject.admin.repo.AdminRepo;
 import com.bdj.blooddonateproject.donator.model.Donator;
 import com.bdj.blooddonateproject.donator.repo.DonatorRepo;
 import com.bdj.blooddonateproject.enums.RoleEnum;
@@ -26,10 +28,27 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepo userRepo, DonatorRepo donatorRepo, PasswordEncoder passwordEncoder) {
+    @Autowired
+    private AdminRepo adminRepo;
+
+    public UserServiceImpl(UserRepo userRepo, DonatorRepo donatorRepo, PasswordEncoder passwordEncoder,
+            AdminRepo adminRepo) {
         this.userRepo = userRepo;
         this.donatorRepo = donatorRepo;
         this.passwordEncoder = passwordEncoder;
+        this.adminRepo = adminRepo;
+    }
+
+    @Override
+    public void createAdmin() {
+
+        User newUser = new User("admin", passwordEncoder.encode("123456789"), RoleEnum.ROLE_ADMIN);
+        newUser.setUuid(UUID.randomUUID().toString());
+        newUser.setIsDeleted(false);
+        Admin admin = new Admin();
+        admin.setAdmin(newUser);
+        userRepo.saveAndFlush(newUser);
+        adminRepo.saveAndFlush(admin);
     }
 
     @Override
