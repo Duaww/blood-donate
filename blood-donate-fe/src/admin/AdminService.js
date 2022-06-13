@@ -19,7 +19,29 @@ class AdminService {
       Authorization: author,
     };
     return axios.get(LIST_HOSPITAL_URI, { headers: headers, params: pageble });
+  }
 
+  getListDonator(token, pageble) {
+    const LIST_DONATOR_URI = AUTH_BASE_API_URI + "/donator";
+    const author = "Token " + token;
+    const headers = {
+      Authorization: author,
+    };
+    return axios.get(LIST_DONATOR_URI, { headers: headers, params: pageble });
+  }
+
+  lockAccount(token, donatorId) {
+    const ADMIN_URI = AUTH_BASE_API_URI + "/admin";
+    const author = "Token " + token;
+    const headers = {
+      Authorization: author,
+    };
+    let requetsBody = {
+      donatorId: donatorId,
+    };
+    return axios.post(ADMIN_URI, requetsBody, {
+      headers: headers,
+    });
   }
 }
 

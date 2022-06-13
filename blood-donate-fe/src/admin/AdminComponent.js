@@ -35,6 +35,10 @@ export const AdminComponent = (props) => {
     navigate("/hospital");
   }
 
+  function listDonator() {
+    navigate("/donator");
+  }
+
   function logout() {
     LoginService.logout(token)
       .then((res) => {
@@ -58,6 +62,7 @@ export const AdminComponent = (props) => {
         value="List Hospital"
         onClick={() => listHospital()}
       />
+      <input type="button" value="List Donator" onClick={() => listDonator()} />
       <input type="button" value="Logout" onClick={() => logout()} />
     </div>
   );

@@ -12,4 +12,5 @@ public interface UserService {
     void createAdmin();
 
     User findByUsername(String username);
+
 }

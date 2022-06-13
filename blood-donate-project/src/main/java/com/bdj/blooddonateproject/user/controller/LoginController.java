@@ -1,5 +1,6 @@
 package com.bdj.blooddonateproject.user.controller;
 
+import com.bdj.blooddonateproject.config.UserDetailServiceImp;
 import com.bdj.blooddonateproject.config.UserPrincipal;
 import com.bdj.blooddonateproject.jwt.model.JwtUtil;
 import com.bdj.blooddonateproject.jwt.model.Token;
@@ -33,6 +34,9 @@ public class LoginController {
     private UserService userService;
 
     @Autowired
+    private UserDetailServiceImp detailServiceImp;
+
+    @Autowired
     private TokenService tokenService;
 
     @Autowired
@@ -41,10 +45,13 @@ public class LoginController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    public LoginController(UserService userService, TokenService tokenService, JwtUtil jwtUtil) {
+    public LoginController(UserService userService, UserDetailServiceImp detailServiceImp, TokenService tokenService,
+            JwtUtil jwtUtil, AuthenticationManager authenticationManager) {
         this.userService = userService;
+        this.detailServiceImp = detailServiceImp;
         this.tokenService = tokenService;
         this.jwtUtil = jwtUtil;
+        this.authenticationManager = authenticationManager;
     }
 
     @PostMapping("")
@@ -54,7 +61,7 @@ public class LoginController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("user name or password incorrect");
         }
         // userService.createAdmin();
-        UserPrincipal userPrincipal = UserPrincipal.create(user);
+        UserPrincipal userPrincipal = detailServiceImp.loadUserByUsername(login.getUsername());
         Token token = new Token();
         token.setToken(jwtUtil.generateToken(userPrincipal));
         token.setTokenExpDate(jwtUtil.generateExpirationDate());

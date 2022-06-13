@@ -67,6 +67,7 @@ public class UserServiceImpl implements UserService {
         newDonator.setName(request.getFullname());
         newDonator.setIdCard(request.getidCard());
         newDonator.setPhone(request.getPhone());
+        newDonator.setNumOfNotDonated(0);
         userRepo.saveAndFlush(newUser);
         donatorRepo.saveAndFlush(newDonator);
         return newUser;

@@ -35,9 +35,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Autowired
     private JwtUtil jwtUtil;
 
-    @Autowired
-    private UserDetailServiceImp userDetailsService;
-
     public JwtRequestFilter() {
     }
 

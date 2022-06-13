@@ -19,7 +19,7 @@ public class UserDetailServiceImp implements UserDetailsService {
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserPrincipal loadUserByUsername(String username) throws UsernameNotFoundException {
         // TODO Auto-generated method stub
         User user = userRepo.findByUsername(username).orElseThrow(() -> {
             return new UsernameNotFoundException("User name" + username + "is not found in DB");

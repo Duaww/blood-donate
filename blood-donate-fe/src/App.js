@@ -11,6 +11,7 @@ import { DonatedBloodComponent } from "./donated-blood/DonatedBloodComponent";
 import { AdminComponent } from "./admin/AdminComponent";
 import { CreateHospitalComponent } from "./admin/CreateHospitalComponent";
 import { ListHospitalComponent } from "./admin/ListHostpital";
+import { ListDonatorComponent } from "./admin/ListDonator";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
                 element={<CreateHospitalComponent />}
               />
               <Route path="hospital" element={<ListHospitalComponent />} />
+              <Route path="donator" element={<ListDonatorComponent />} />
             </Routes>
           </header>
         </div>{" "}
