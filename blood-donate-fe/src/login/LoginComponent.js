@@ -4,6 +4,7 @@ import LoginService from "./LoginService";
 import TokenService from "../jwt/TokenService";
 import { useNavigate } from "react-router-dom";
 import { Role } from "../common/Role";
+import imgDonate from "./static/blood-donations.png";
 
 export const LoginComponent = (props) => {
   const [username, setUserName] = useState("");
@@ -42,32 +43,48 @@ export const LoginComponent = (props) => {
   }
 
   return (
-    <div className="form">
-      <form>
-        <div className="input-container">
-          <label>Username </label>
-          <input
-            type="text"
-            name="username"
-            value={username}
-            onChange={(e) => setUserName(e.target.value)}
-            required
-          />
+    <div class="parent clearfix">
+      <div class="bg-illustration">
+        <div class="burger-btn"></div>
+      </div>
+      <div class="login">
+        <div class="container">
+          <h1>
+            Login to access to
+            <br />
+            hospital account
+          </h1>
+
+          <div class="login-form">
+            <form action="">
+              <input
+                type="text"
+                placeholder="Hospital or Admin account"
+                name="username"
+                value={username}
+                onChange={(e) => setUserName(e.target.value)}
+                required
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <button
+                className="button-login"
+                type="button"
+                value="Login"
+                onClick={() => login()}
+              >
+                Login
+              </button>
+            </form>
+          </div>
         </div>
-        <div className="input-container">
-          <label>Password </label>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div className="button-container">
-          <input type="button" value="Login" onClick={() => login()} />
-        </div>
-      </form>
+      </div>
     </div>
   );
 };

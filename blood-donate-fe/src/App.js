@@ -15,13 +15,10 @@ import { ListDonatorComponent } from "./admin/ListDonator";
 
 function App() {
   return (
-    <div>
+    <div style={{ height: "100vh" }}>
       <Router>
-        {/* <div className="">
-          <Header />
-        </div> */}
-        <div className="">
-          <header className="">
+        <div className="" style={{ height: "100%" }}>
+          <header className="" style={{ height: "100%" }}>
             <Routes>
               <Route path="/" element={<LoginComponent />} />
               <Route path="auth-error" element={<AuthError />} />
