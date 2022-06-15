@@ -24,7 +24,6 @@ function App() {
               <Route path="auth-error" element={<AuthError />} />
               <Route path="my-profile" element={<MyProfileComponent />} />
               <Route path="create-post" element={<CreatePostComponent />} />
-              <Route path="list-post" element={<ListPostComponent />} />
               <Route path="detail/:key" element={<PostDetailComponent />} />
               <Route
                 path="register-post/:key"

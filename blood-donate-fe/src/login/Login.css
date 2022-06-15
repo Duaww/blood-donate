@@ -1,22 +1,4 @@
-/* .d-flex {
-    display: flex;
-}
 
-.justify-content-center {
-    justify-content: center;
-}
-
-.align-items-center {
-    align-items: center;
-}
-
-.margin-top-auto {
-    margin-top: auto;
-}
-
-.border {
-    border: 1px solid black;
-} */
 
 * {
     margin: 0;
@@ -79,7 +61,7 @@ img {
     position: relative;
     height: 100vh;
     width: 1194px;
-    background: url("./static/blood-donations.png") no-repeat center center scroll;
+    background: url("./static/blood-donations.jpg") no-repeat center center scroll;
     background-size: cover;
     float: left;
     -webkit-animation: bgslide 2.3s forwards;
@@ -219,23 +201,6 @@ img {
     color: #918F8F;
 }
 
-.login .container .forget-pass a::after {
-    content: "";
-    position: absolute;
-    height: 2px;
-    width: 100%;
-    border-radius: 100px;
-    background: -webkit-linear-gradient(110deg, #f794a4 0%, #fdd6bd 100%);
-    background: -o-linear-gradient(110deg, #f794a4 0%, #fdd6bd 100%);
-    background: linear-gradient(-20deg, #f794a4 0%, #fdd6bd 100%);
-    bottom: -4px;
-    left: 0;
-    -webkit-transition: 0.3s;
-    -o-transition: 0.3s;
-    transition: 0.3s;
-    opacity: 0;
-    right: 0;
-}
 
 .login .container .forget-pass a:hover::after {
     opacity: 1;

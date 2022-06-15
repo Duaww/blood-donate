@@ -4,7 +4,6 @@ import LoginService from "./LoginService";
 import TokenService from "../jwt/TokenService";
 import { useNavigate } from "react-router-dom";
 import { Role } from "../common/Role";
-import imgDonate from "./static/blood-donations.png";
 
 export const LoginComponent = (props) => {
   const [username, setUserName] = useState("");
