@@ -4,6 +4,10 @@ body {
     margin: 2rem;
 }
 
+.text-align-center {
+    text-align: center;
+}
+
 .blog-card {
     flex-direction: column;
     margin: 1rem auto;

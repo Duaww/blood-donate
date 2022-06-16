@@ -52,16 +52,26 @@ export const MyProfileComponent = () => {
   }
 
   return (
-    <div>
-      <span>{name}</span>
-      <span>{address}</span>
-      <input
-        type="button"
-        value="Create new post"
-        onClick={() => createPost()}
-      />
-      <input type="button" value="List Donated" onClick={() => listDonated()} />
-      <input type="button" value="Logout" onClick={() => logout()} />
+    <div className="margin-bottom-30px">
+      <h2 className="margin-top-15px">Tên bệnh viện : {name}</h2>
+      <h2 className="margin-top-15px">Địa chỉ : {address}</h2>
+      <div className="margin-top-15px margin-bottom-35px">
+        <button
+          className="choice-option margin-right-25px"
+          onClick={() => createPost()}
+        >
+          Tạo bài đăng mới
+        </button>
+        <button
+          className="choice-option margin-right-25px"
+          onClick={() => listDonated()}
+        >
+          Danh sách người đã hiến máu
+        </button>
+        <button className="choice-option" onClick={() => logout()}>
+          Đăng xuất
+        </button>
+      </div>
       <ListPostComponent />
     </div>
   );

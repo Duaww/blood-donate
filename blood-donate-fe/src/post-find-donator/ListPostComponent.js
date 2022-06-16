@@ -50,20 +50,10 @@ export const ListPostComponent = () => {
   return (
     <div>
       <div>
-        Danh sách bài đăng
+        <h1 className="text-align-center">Danh sách bài đăng</h1>
         {listPost.map((post, index) => (
-          // <div className="row text-align-center" key={index}>
-          //   <p>{post.content}</p>
-          //   <span>{convertTimeStampToDate(post.deadlineRegister)}</span>
-          //   <br />
-          //   <input
-          //     type="button"
-          //     value="Detail"
-          //     onClick={() => getInforPost(post.id)}
-          //   />
-          // </div>
-          <div class="blog-card">
-            <div class="description">
+          <div className="blog-card" key={index}>
+            <div className="description">
               <h1>Bài đăng thông báo sự kiện hiến máu</h1>
               <h2>
                 Đăng tải vào ngày : {convertTimeStampToDate(post.createAt)}
@@ -73,7 +63,7 @@ export const ListPostComponent = () => {
                 {convertTimeStampToDate(post.deadlineRegister)}
               </h2>
               <p>{post.content}</p>
-              <p class="read-more">
+              <p className="read-more">
                 <a href="" onClick={() => getInforPost(post.id)}>
                   Detail
                 </a>
