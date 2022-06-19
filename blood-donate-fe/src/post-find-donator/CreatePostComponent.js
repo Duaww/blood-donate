@@ -26,44 +26,65 @@ export const CreatePostComponent = () => {
 
   function createNewPost() {
     if (contentPost == "" || deadline == 0) {
-      window.location.reload();
+      window.alert("Xin hãy nhập đủ thông tin");
       return;
     }
     let postInfo = { content: contentPost, deadlineRegister: deadline };
     PostFindDonatorService.createNewPost(token, postInfo)
       .then((res) => {
-        navigate("/list-post");
+        navigate("/my-profile");
       })
       .catch((error) => {
         console.log(error);
       });
   }
 
+  function convertDateToTimeStamp(value) {
+    return Date.parse(value) / 1000;
+  }
+
+  function convertTimeStampToDate(value) {
+    let date = new Date(value * 1000);
+    return date.toISOString().split("T")[0];
+  }
+
   return (
     <div>
-      CreatePost
-      <div>
-        <label>Content</label>
-        <textarea
-          value={contentPost}
-          onChange={(e) => setContentPost(e.target.value)}
-          id=""
-          name=""
-          rows="4"
-          cols="50"
-          required
-        />
-        <label>Deadline Register</label>
-        <input
-          type="text"
-          name="deadline"
-          value={deadline}
-          onChange={(e) => setDeadLine(e.target.value)}
-          required
-        />
-        <input type="button" value="Create" onClick={() => createNewPost()} />
+      <div className="container">
+        <div id="contact">
+          <h3>Tạo bài đăng mới</h3>
+          <fieldset>
+            <h4>Hạn đăng kí:</h4>
+            <input
+              type="date"
+              value={convertTimeStampToDate(deadline)}
+              onChange={(e) =>
+                setDeadLine(convertDateToTimeStamp(e.target.value))
+              }
+              required
+            />
+          </fieldset>
+          <fieldset>
+            <textarea
+              placeholder="Viết thông báo ở đây"
+              tabIndex="5"
+              value={contentPost}
+              onChange={(e) => setContentPost(e.target.value)}
+              required
+            ></textarea>
+          </fieldset>
+          <fieldset>
+            <button onClick={() => createNewPost()} id="contact-submit">
+              Đăng bài
+            </button>
+          </fieldset>
+          <fieldset>
+            <button id="contact-submit" onClick={() => goBack()}>
+              Trở về
+            </button>
+          </fieldset>
+        </div>
       </div>
-      <input type="button" value="Back" onClick={() => goBack()} />
     </div>
   );
 };

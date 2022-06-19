@@ -1,0 +1,137 @@
+table {
+    border: 1px solid #b6b2b2;
+    border-collapse: collapse;
+}
+
+tr {
+    border-bottom: 1px solid #b6b2b2;
+}
+
+tbody tr:hover {
+    background-color: #b6b2b2;
+}
+
+td,
+th {
+    border-right: 1px solid #b6b2b2;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0.5rem;
+}
+
+
+.marign-right-15px {
+    margin-right: 15px;
+}
+
+.marign-right-5px {
+    margin-right: 5px;
+}
+
+
+.body {
+    display: flex;
+    justify-content: center;
+}
+
+.table {
+    margin-top: 1.5rem;
+    width: 100%;
+    text-align: center;
+
+}
+
+.div-btn-add {
+    position: relative;
+}
+
+.add-btn {
+    position: absolute;
+    left: 10%;
+    padding: 0.5rem;
+    color: white;
+    border-style: none;
+    border-radius: 5px;
+    background-color: #0073e6;
+}
+
+.add-btn:hover {
+    background-color: #0066cc;
+    cursor: pointer;
+}
+
+.delete-btn {
+    padding: 0.5rem 0.6rem;
+    color: white;
+    background-color: #ff3333;
+    border-style: none;
+    border-radius: 5px;
+    margin-left: 0.5rem;
+}
+
+.delete-btn:hover {
+    background-color: #ff1a1a;
+    cursor: pointer;
+}
+
+.update-btn {
+    padding: 0.5rem 0.6rem;
+    color: white;
+    background-color: #1aa3ff;
+    border-style: none;
+    border-radius: 5px;
+}
+
+.update-btn:hover {
+    background-color: #008ae6;
+    cursor: pointer;
+}
+
+
+.div-filter{
+    margin-top: 1.5rem;
+    border-bottom: 1px solid #df81a0;
+}
+
+.back { 
+    text-align: right;
+    margin-top: 1rem;
+}
+
+
+.search-button,
+.button-back {
+    background: linear-gradient(-20deg, #dc5c71 0%, #de8f5f 100%);
+    border: none;
+    margin-bottom: 20px;
+    width: 8%;
+    height: 30px;
+    color: white;
+    border-radius: 5px;
+    position: relative;
+    z-index: 2;
+    font-weight: bold;
+    font-size: 14px;
+    opacity: 0.8;
+    
+}
+
+.search-button:hover,
+.button-back:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.select-option,
+.text-search {
+    border: 1px solid #ccc;
+    background: #fff;
+    margin: 0 0 5px;
+    padding: 5px;
+    height: 30px;
+    max-width: 100%;
+    resize: none;
+    margin-right: 15px;
+    min-width: 100px;
+}
+

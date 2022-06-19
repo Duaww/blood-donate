@@ -49,16 +49,16 @@ export const LoginComponent = (props) => {
       <div class="login">
         <div class="container">
           <h1>
-            Login to access to
+            Đăng nhập bằng tài khoản admin
             <br />
-            hospital account
+            hoặc tài khoản bệnh viện
           </h1>
 
           <div class="login-form">
             <form action="">
               <input
                 type="text"
-                placeholder="Hospital or Admin account"
+                placeholder="Tài khoản admin hoặc bệnh viện"
                 name="username"
                 value={username}
                 onChange={(e) => setUserName(e.target.value)}
@@ -66,7 +66,7 @@ export const LoginComponent = (props) => {
               />
               <input
                 type="password"
-                placeholder="Password"
+                placeholder="Mật khẩu"
                 name="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -78,7 +78,7 @@ export const LoginComponent = (props) => {
                 value="Login"
                 onClick={() => login()}
               >
-                Login
+                Đăng nhập
               </button>
             </form>
           </div>
