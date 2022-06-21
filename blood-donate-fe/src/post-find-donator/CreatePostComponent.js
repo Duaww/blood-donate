@@ -51,7 +51,7 @@ export const CreatePostComponent = () => {
   return (
     <div>
       <div className="container">
-        <div id="contact">
+        <div id="post">
           <h3>Tạo bài đăng mới</h3>
           <fieldset>
             <h4>Hạn đăng kí:</h4>
@@ -74,12 +74,20 @@ export const CreatePostComponent = () => {
             ></textarea>
           </fieldset>
           <fieldset>
-            <button onClick={() => createNewPost()} id="contact-submit">
+            <button
+              className="button"
+              onClick={() => createNewPost()}
+              id="post-submit"
+            >
               Đăng bài
             </button>
           </fieldset>
           <fieldset>
-            <button id="contact-submit" onClick={() => goBack()}>
+            <button
+              className="button"
+              id="post-submit"
+              onClick={() => goBack()}
+            >
               Trở về
             </button>
           </fieldset>

@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import LoginService from "../login/LoginService";
 import TokenService from "../jwt/TokenService";
 import { Role } from "../common/Role";
+import { ListHospitalComponent } from "./ListHostpital";
+import { ListDonatorComponent } from "./ListDonator";
 
 export const AdminComponent = (props) => {
   const navigate = useNavigate();
@@ -27,18 +29,6 @@ export const AdminComponent = (props) => {
     }
   }
 
-  function createNewHospital() {
-    navigate("/create-hospital");
-  }
-
-  function listHospital() {
-    navigate("/hospital");
-  }
-
-  function listDonator() {
-    navigate("/donator");
-  }
-
   function logout() {
     LoginService.logout(token)
       .then((res) => {
@@ -50,20 +40,58 @@ export const AdminComponent = (props) => {
       });
   }
 
+  const [currentTab, setCurrentTab] = useState("1");
+  const tabs = [
+    {
+      id: 1,
+      tabTitle: "Danh sách bệnh viện",
+      content: <ListHospitalComponent />,
+    },
+    {
+      id: 2,
+      tabTitle: "Danh sách người hiến máu",
+      content: <ListDonatorComponent />,
+    },
+  ];
+
+  const handleTabClick = (e) => {
+    setCurrentTab(e.target.id);
+  };
+
   return (
-    <div>
-      <input
-        type="button"
-        value="Create new Hospital"
-        onClick={() => createNewHospital()}
-      />
-      <input
-        type="button"
-        value="List Hospital"
-        onClick={() => listHospital()}
-      />
-      <input type="button" value="List Donator" onClick={() => listDonator()} />
-      <input type="button" value="Logout" onClick={() => logout()} />
+    <div className="container1">
+      <div className="tabs">
+        {tabs.map((tab, i) => (
+          <button
+            key={i}
+            id={tab.id}
+            disabled={currentTab === `${tab.id}`}
+            onClick={handleTabClick}
+            className="fs-25px"
+          >
+            {tab.tabTitle}
+          </button>
+        ))}
+      </div>
+      <div className="content">
+        {tabs.map((tab, i) => (
+          <div key={i}>
+            {currentTab === `${tab.id}` && (
+              <div>
+                <p>{tab.content}</p>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+      <div className="back">
+        <input
+          className="button-back"
+          type="button"
+          value="Đăng xuất"
+          onClick={() => logout()}
+        />
+      </div>
     </div>
   );
 };

@@ -14,10 +14,6 @@ export const ListHospitalComponent = () => {
     getListHospital();
   }, []);
 
-  function goBack() {
-    navigate(-1);
-  }
-
   function checkAuth() {
     if (token == null) {
       navigate("/");
@@ -46,18 +42,42 @@ export const ListHospitalComponent = () => {
       });
   }
 
+  function createNewHospital() {
+    navigate("/create-hospital");
+  }
+
   return (
     <div>
-      listHospital
-      {listHospital.map((hospital, index) => (
-        <div key={index}>
-          <p>id: {hospital["id"]}</p>
-          <p>name : {hospital["name"]}</p>
-          <p>address : {hospital["address"]}</p>
-          <span>--------------------</span>
+      <h2>Danh sách bệnh viện</h2>
+      <input
+        className="button-create"
+        type="button"
+        value="Tạo tài khoản cho bệnh viện"
+        onClick={() => createNewHospital()}
+      />
+      <div>
+        <div className="body">
+          <div class=""></div>
+          <table className="table">
+            <thead className="">
+              <tr className="">
+                <th className="">No</th>
+                <th className="">Tên Bệnh viện</th>
+                <th className="">Địa chỉ</th>
+              </tr>
+            </thead>
+            <tbody className="">
+              {listHospital.map((hospital, index) => (
+                <tr key={index}>
+                  <td className="">{index + 1}</td>
+                  <td className="">{hospital["name"]}</td>
+                  <td className="">{hospital["address"]}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-      ))}
-      <input type="button" value="Back" onClick={() => goBack()} />
+      </div>
     </div>
   );
 };

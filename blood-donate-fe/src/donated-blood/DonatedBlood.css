@@ -116,6 +116,23 @@ th {
     
 }
 
+.button-create {
+    background: linear-gradient(-20deg, #dc5c71 0%, #de8f5f 100%);
+    border: none;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    width: 20%;
+    height: 30px;
+    color: white;
+    border-radius: 5px;
+    position: relative;
+    z-index: 2;
+    font-weight: bold;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.button-create:hover,
 .search-button:hover,
 .button-back:hover {
     opacity: 1;

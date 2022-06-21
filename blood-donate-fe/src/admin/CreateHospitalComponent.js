@@ -63,67 +63,81 @@ export const CreateHospitalComponent = (props) => {
       });
   }
 
+  function goBack() {
+    navigate(-1);
+  }
+
   return (
     <div>
-      <form>
-        <div className="input-container">
-          <label>Account</label>
-          <input
-            type="text"
-            name="username"
-            value={username}
-            onChange={(e) => setUserName(e.target.value)}
-            required
-          />
+      <div className="container">
+        <div id="post">
+          <h3>Tạo tài khoản bệnh viện</h3>
+          <fieldset>
+            <h4>Tài khoản:</h4>
+            <input
+              type="text"
+              name="username"
+              value={username}
+              onChange={(e) => setUserName(e.target.value)}
+            />
+          </fieldset>
+          <fieldset>
+            <h4>Tên bệnh viện:</h4>
+            <input
+              type="text"
+              name="hospitalName"
+              value={hospitalName}
+              onChange={(e) => setHospitalName(e.target.value)}
+            />
+          </fieldset>
+          <fieldset>
+            <h4>Địa chỉ:</h4>
+            <input
+              type="text"
+              name="address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+            />
+          </fieldset>
+          <fieldset>
+            <h4>Mật khẩu:</h4>
+            <input
+              type="password"
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </fieldset>
+          <fieldset>
+            <h4>Xác nhận mật khẩu:</h4>
+            <input
+              type="password"
+              name="password"
+              value={confirmPassword}
+              oonChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </fieldset>
+
+          <fieldset>
+            <button
+              className="button"
+              onClick={() => createHospital()}
+              id="post-submit"
+            >
+              Tạo tài khoản
+            </button>
+          </fieldset>
+          <fieldset>
+            <button
+              className="button"
+              id="post-submit"
+              onClick={() => goBack()}
+            >
+              Trở về
+            </button>
+          </fieldset>
         </div>
-        <div className="input-container">
-          <label>Hospital name </label>
-          <input
-            type="text"
-            name="hospitalName"
-            value={hospitalName}
-            onChange={(e) => setHospitalName(e.target.value)}
-            required
-          />
-        </div>
-        <div className="input-container">
-          <label>Address </label>
-          <input
-            type="text"
-            name="address"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            required
-          />
-        </div>
-        <div className="input-container">
-          <label>Password </label>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div className="input-container">
-          <label>Confirm Password </label>
-          <input
-            type="password"
-            name="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div className="button-container">
-          <input
-            type="button"
-            value="Create Hopital"
-            onClick={() => createHospital()}
-          />
-        </div>
-      </form>
+      </div>
     </div>
   );
 };

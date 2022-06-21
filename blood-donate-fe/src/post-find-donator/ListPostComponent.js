@@ -64,9 +64,7 @@ export const ListPostComponent = () => {
               </h2>
               <p>{post.content}</p>
               <p className="read-more">
-                <a href="" onClick={() => getInforPost(post.id)}>
-                  Detail
-                </a>
+                <button onClick={() => getInforPost(post.id)}>Detail</button>
               </p>
             </div>
           </div>

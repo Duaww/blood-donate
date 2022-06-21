@@ -119,13 +119,12 @@ export const DonatedBloodComponent = () => {
                 <th className="">Sô căn cước</th>
                 <th className="">Email</th>
                 <th className="">Số điện thoại</th>
-                <th className="">Actions</th>
               </tr>
             </thead>
             <tbody className="">
               {listDonator.map((donator, index) => (
                 <tr key={index}>
-                  <td className="">{index}</td>
+                  <td className="">{index + 1}</td>
 
                   <td className="">{donator["donatorInfoDTO"]["name"]}</td>
                   <td className="">
@@ -137,14 +136,6 @@ export const DonatedBloodComponent = () => {
                   <td className="">{donator["donatorInfoDTO"]["idCard"]}</td>
                   <td className="">{donator["donatorInfoDTO"]["email"]}</td>
                   <td className="">{donator["donatorInfoDTO"]["phone"]}</td>
-                  <td className="">
-                    <button type="" className="update-btn">
-                      Đã hiến máu
-                    </button>
-                    <button type="" className="delete-btn">
-                      Chưa hiến máu
-                    </button>
-                  </td>
                 </tr>
               ))}
             </tbody>

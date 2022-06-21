@@ -58,6 +58,7 @@ public class PostFindDonatorServiceImpl implements PostFindDonatorService {
         // TODO Auto-generated method stub
         PostFindDonator postFindDonator = this.findById(id);
         postFindDonator.setContent(createPostDTO.getContent());
+        postFindDonator.setDeadlineRegister(createPostDTO.getDeadlineRegister());
         postFindDonator.setUpdateAt((int) (new Date().getTime() / 1000));
         postFindDonatorRepo.saveAndFlush(postFindDonator);
 

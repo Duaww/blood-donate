@@ -39,4 +39,14 @@ public class DonatorServiceImpl implements DonatorService {
         return listDonatorDTO;
     }
 
+    @Override
+    public void updateNumOfNotDonated(Long donatorId) {
+        // TODO Auto-generated method stub
+
+        Donator donator = donatorRepo.getById(donatorId);
+        donator.setNumOfNotDonated(donator.getNumOfNotDonated() + 1);
+        donatorRepo.saveAndFlush(donator);
+
+    }
+
 }

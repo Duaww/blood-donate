@@ -9,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,6 +36,22 @@ public class DonatorController {
 
             Page<DonatorDTO> listDonator = donatorService.getListDonator(pageable);
             return new ResponseEntity<Page<DonatorDTO>>(listDonator, HttpStatus.OK);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("please login");
+    }
+
+    @GetMapping("/update-num-not-donated/{donatorId}")
+    @PreAuthorize("hasRole('ROLE_HOSPITAL')")
+    public ResponseEntity<?> updateNumOfNotDonated(@PathVariable("donatorId") Long donatorId) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            try {
+                donatorService.updateNumOfNotDonated(donatorId);
+            } catch (Exception e) {
+                // TODO: handle exception
+                return ResponseEntity.badRequest().body("error: " + e.getMessage());
+            }
+            return ResponseEntity.ok().body("message: " + "UPDATE SUCESS");
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("please login");
     }

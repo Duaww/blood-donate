@@ -11,4 +11,6 @@ public interface DonatorService {
 
     Page<DonatorDTO> getListDonator(Pageable pageable);
 
+    void updateNumOfNotDonated(Long donatorId);
+
 }

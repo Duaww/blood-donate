@@ -81,38 +81,4 @@ public class LoginController {
 
     }
 
-    @GetMapping("/all")
-    public String allAccess() {
-        return "Public Content.";
-    }
-
-    @GetMapping("/user")
-    @PreAuthorize("hasRole('ROLE_DONATOR') or hasRole('ROLE_ADMIN')")
-    public String userAccess() {
-        try {
-            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            if (principal instanceof UserDetails) {
-                UserPrincipal userPrincipal = (UserPrincipal) principal;
-                System.out.println(userPrincipal.getAuthorities());
-            }
-
-        } catch (Exception e) {
-            // TODO: handle exception
-            return e.getMessage();
-        }
-        return "User Content.";
-    }
-
-    @GetMapping("/mod")
-    @PreAuthorize("hasRole('ROLE_HOSPITAL')")
-    public String moderatorAccess() {
-        return "Moderator Board.";
-    }
-
-    @GetMapping("/admin")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String adminAccess() {
-        return "Admin Board.";
-    }
-
 }

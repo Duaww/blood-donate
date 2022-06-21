@@ -89,7 +89,26 @@ public class DonatedBloodController {
             return new ResponseEntity<Page<DonatedBloodDTO>>(history, HttpStatus.OK);
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("please login");
+    }
 
+    @GetMapping("/confirm-donated/{donatorId}")
+    @PreAuthorize("hasRole('ROLE_HOSPITAL')")
+    public ResponseEntity<?> confirmDonated(@PathVariable("donatorId") Long donatorId) {
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+
+            UserPrincipal userPrincipal = (UserPrincipal) principal;
+            Hospital hospital = hospitalService.findInfoHospital(userPrincipal.getUsername());
+            try {
+                donatedBloodService.confirmDonated(hospital, donatorId);
+            } catch (Exception e) {
+                // TODO: handle exception
+                return ResponseEntity.badRequest().body("error: " + e.getMessage());
+            }
+            return ResponseEntity.ok().body("message: " + "UPDATE SUCESS");
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("please login");
     }
 
 }

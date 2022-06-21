@@ -12,10 +12,6 @@ export const ListDonatorComponent = () => {
     getListDonator();
   }, []);
 
-  function goBack() {
-    navigate(-1);
-  }
-
   function checkAuth() {
     if (token == null) {
       navigate("/");
@@ -56,28 +52,60 @@ export const ListDonatorComponent = () => {
       });
   }
 
+  function convertTimeStampToDate(timestamp) {
+    return new Date(timestamp * 1000).toISOString().split("T")[0];
+  }
+
   return (
     <div>
-      listDonator
-      {listDonator.map((donator, index) => (
-        <div key={index}>
-          <p>name : {donator["name"]}</p>
-          <p>birthday : {donator["birthday"]}</p>
-          <p>phone : {donator["phone"]}</p>
-          <p>email : {donator["email"]}</p>
-          <p>blood : {donator["blood"]}</p>
-          <p>idCard : {donator["idCard"]}</p>
-          <p>number donated : {donator["numDonated"]}</p>
-          <p>numOfNotDonated : {donator["numOfNotDonated"]}</p>
-          <input
-            type="button"
-            value="Lock account"
-            onClick={() => lockAccount(donator["id"])}
-          />
-          <span>--------------------</span>
+      <h2>Danh sách người đã hiến máu tại bệnh viện</h2>
+      <div>
+        <div className="body">
+          <div class=""></div>
+          <table className="table">
+            <thead className="">
+              <tr className="">
+                <th className="">No</th>
+                <th className="">Tên</th>
+                <th className="">Ngày sinh</th>
+                <th className="">Nhóm máu</th>
+                <th className="">Sô căn cước</th>
+                <th className="">Email</th>
+                <th className="">Số điện thoại</th>
+                <th className="">Số lần hiến máu</th>
+                <th className="">Số lần bỏ hiến máu</th>
+                <th className="">Khóa tài khoản</th>
+              </tr>
+            </thead>
+            <tbody className="">
+              {listDonator.map((donator, index) => (
+                <tr key={index}>
+                  <td className="">{index + 1}</td>
+
+                  <td className="">{donator["name"]}</td>
+                  <td className="">
+                    {convertTimeStampToDate(donator["birthday"])}
+                  </td>
+                  <td className="">{donator["blood"]}</td>
+                  <td className="">{donator["idCard"]}</td>
+                  <td className="">{donator["email"]}</td>
+                  <td className="">{donator["phone"]}</td>
+                  <td className="">{donator["numDonated"]}</td>
+                  <td className="">{donator["numOfNotDonated"]}</td>
+                  <td className="">
+                    <input
+                      className="delete-btn"
+                      type="button"
+                      value="Khóa"
+                      onClick={() => lockAccount(donator["id"])}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-      ))}
-      <input type="button" value="Back" onClick={() => goBack()} />
+      </div>
     </div>
   );
 };
