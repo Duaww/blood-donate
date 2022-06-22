@@ -49,26 +49,17 @@ class _SignUpScreen extends State<SignUpScreen> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        const Text(
-                          "Sign up",
+                        Text(
+                          "Đăng kí tài khoản",
                           style: TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
+                            color: Colors.pink.shade400,
                           ),
                         ),
                         const SizedBox(
                           height: 20,
                         ),
-                        Text(
-                          "Create an Account,Its free",
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.grey[700],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 30,
-                        )
                       ],
                     ),
                     Padding(
@@ -76,22 +67,23 @@ class _SignUpScreen extends State<SignUpScreen> {
                       child: Column(
                         children: [
                           makeInput(
-                              label: "Account",
+                              label: "Tài khoản",
                               textController: usernameController),
                           makeInput(
-                              label: "Full Name",
+                              label: "Họ và tên",
                               textController: fullnameController),
                           makeInput(
-                              label: "Id card",
+                              label: "Số căn cước công dân",
                               textController: idCardController),
                           makeInput(
-                              label: "Phone", textController: phoneController),
+                              label: "Số điện thoại",
+                              textController: phoneController),
                           makeInput(
-                              label: "Password",
+                              label: "Mật khẩu",
                               textController: passwordController,
                               obsureText: true),
                           makeInput(
-                              label: "Confirm password",
+                              label: "Xác nhận mật khẩu",
                               textController: confirmPasswordController,
                               obsureText: true)
                         ],
@@ -105,7 +97,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                           minWidth: double.infinity,
                           height: 30,
                           onPressed: () {},
-                          color: Colors.redAccent,
+                          color: Colors.pink.shade400,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(40)),
                           child: TextButton(
@@ -113,7 +105,10 @@ class _SignUpScreen extends State<SignUpScreen> {
                               register(context);
                             },
                             child: const Text(
-                              'Sign up',
+                              'Đăng kí',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),

@@ -46,17 +46,13 @@ void main() async {
 }
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // If you're going to use other Firebase services in the background, such as Firestore,
-  // make sure you call `initializeApp` before using other Firebase services.
   await Firebase.initializeApp();
-
-  print("Handling a background message: ${message.messageId}");
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  static const String _title = 'Blood Donate App';
+  static const String _title = 'Ứng dụng hỗ trợ hiến máu';
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +62,10 @@ class MyApp extends StatelessWidget {
       title: _title,
       home: Scaffold(
         resizeToAvoidBottomInset: true,
-        appBar: AppBar(title: const Text(_title)),
+        appBar: AppBar(
+          title: const Text(_title),
+          backgroundColor: Colors.pink.shade400,
+        ),
         body: LoginScreen(),
       ),
     );

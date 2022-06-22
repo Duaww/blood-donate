@@ -39,10 +39,10 @@ class _LoginScreen extends State<LoginScreen> {
             Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10),
-                child: const Text(
-                  'Login',
+                child: Text(
+                  'Đăng nhập',
                   style: TextStyle(
-                      color: Colors.blue,
+                      color: Colors.pink.shade400,
                       fontWeight: FontWeight.w500,
                       fontSize: 30),
                 )),
@@ -52,34 +52,28 @@ class _LoginScreen extends State<LoginScreen> {
                 controller: nameController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'User Name',
+                  labelText: 'Tài khoản',
                 ),
               ),
             ),
             Container(
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
               child: TextField(
                 obscureText: true,
                 controller: passwordController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Password',
+                  labelText: 'Mật khẩu',
                 ),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                //forgot password screen
-              },
-              child: const Text(
-                'Forgot Password',
               ),
             ),
             Container(
                 height: 50,
                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                 child: ElevatedButton(
-                  child: const Text('Login'),
+                  style:
+                      ElevatedButton.styleFrom(primary: Colors.pink.shade400),
+                  child: const Text('Đăng nhập'),
                   onPressed: (() => {
                         // print(LoginService.BASE_AUTH_URL),
                         LoginService.login(
@@ -136,11 +130,14 @@ class _LoginScreen extends State<LoginScreen> {
                 )),
             Row(
               children: <Widget>[
-                const Text('Does not have account?'),
+                const Text('Bạn đã có tài khoản chưa ?'),
                 TextButton(
-                  child: const Text(
-                    'Sign up',
-                    style: TextStyle(fontSize: 20),
+                  child: Text(
+                    'Đăng kí',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.pink.shade400,
+                    ),
                   ),
                   onPressed: () {
                     Navigator.push(
