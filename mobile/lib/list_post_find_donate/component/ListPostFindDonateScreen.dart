@@ -31,7 +31,8 @@ class _ListPostFindDonateScreenState extends State<ListPostFindDonateScreen> {
                       listPostFindDonate.add(PostFindDonate(
                           res.data["content"][i]["id"],
                           res.data["content"][i]["content"],
-                          res.data["content"][i]["updateAt"])),
+                          res.data["content"][i]["updateAt"],
+                          res.data["content"][i]["createAt"])),
                     },
                 },
               )
@@ -41,31 +42,159 @@ class _ListPostFindDonateScreenState extends State<ListPostFindDonateScreen> {
             });
   }
 
+  String convertTimeStampToDate(int timeStamp) {
+    DateTime date = DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000);
+    String dateFormat = "";
+    dateFormat = dateFormat +
+        date.year.toString() +
+        "-" +
+        date.month.toString() +
+        "-" +
+        date.day.toString();
+    return dateFormat;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView.builder(
-          itemCount: listPostFindDonate.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Container(
-              height: 50,
-              child: Center(
-                  child: ElevatedButton(
-                onPressed: (() => {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => PostFindDonateScreen(
-                                  id: listPostFindDonate[index].id))),
-                    }),
-                child: Text(
-                  listPostFindDonate[index].content +
-                      listPostFindDonate[index].updateAt.toString(),
-                  style: const TextStyle(fontSize: 12),
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Container(
+          padding: const EdgeInsets.fromLTRB(40, 0, 0, 0),
+          child: const Text(
+            "Danh sách bài đăng",
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+        elevation: 0,
+        backgroundColor: Colors.pink.shade400,
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              size: 20,
+              color: Colors.white,
+            )),
+      ),
+      body: Container(
+        padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+        child: ListView.builder(
+            itemCount: listPostFindDonate.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Container(
+                height: 330,
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                child: Container(
+                  padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "Nội dung bài đăng",
+                        style: TextStyle(fontSize: 15, color: Colors.redAccent),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.pink.shade400),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: TextField(
+                            enabled: false,
+                            maxLines: 6, //or null
+                            decoration: const InputDecoration.collapsed(
+                                hintText: "Enter your text here"),
+                            controller: TextEditingController(
+                                text: listPostFindDonate[index].content),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(right: 5.0),
+                            child: Icon(
+                              Icons.timer,
+                              size: 20,
+                              color: Colors.pink.shade400,
+                            ),
+                          ),
+                          Text(
+                            "Đăng tải vào ngày : " +
+                                convertTimeStampToDate(
+                                    listPostFindDonate[index].createAt),
+                            style: const TextStyle(
+                                fontSize: 15, color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(right: 5.0),
+                            child: Icon(
+                              Icons.timer,
+                              size: 20,
+                              color: Colors.pink.shade400,
+                            ),
+                          ),
+                          Text(
+                            "Cập nhật vào ngày : " +
+                                convertTimeStampToDate(
+                                    listPostFindDonate[index].updateAt),
+                            style: const TextStyle(
+                                fontSize: 15, color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        child: MaterialButton(
+                          minWidth: double.infinity,
+                          onPressed: () => {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => PostFindDonateScreen(
+                                        id: listPostFindDonate[index].id))),
+                          },
+                          color: Colors.pink.shade400,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(40)),
+                          child: const Text(
+                            'Chi tiết bài đăng',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              )),
-            );
-          }),
+              );
+            }),
+      ),
     );
   }
 }
@@ -77,5 +206,7 @@ class PostFindDonate {
 
   late int updateAt;
 
-  PostFindDonate(this.id, this.content, this.updateAt);
+  late int createAt;
+
+  PostFindDonate(this.id, this.content, this.updateAt, this.createAt);
 }

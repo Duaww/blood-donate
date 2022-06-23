@@ -63,7 +63,13 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
-          title: const Text(_title),
+          title: Container(
+            padding: const EdgeInsets.fromLTRB(60, 0, 0, 0),
+            child: const Text(
+              _title,
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
           backgroundColor: Colors.pink.shade400,
         ),
         body: LoginScreen(),
