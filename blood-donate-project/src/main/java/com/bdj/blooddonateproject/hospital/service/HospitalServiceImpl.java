@@ -59,7 +59,6 @@ public class HospitalServiceImpl implements HospitalService {
         User hospital = new User(createHospitalDTO.getUsername(),
                 passwordEncoder.encode(createHospitalDTO.getPassword()),
                 RoleEnum.ROLE_HOSPITAL);
-        hospital.setUuid(UUID.randomUUID().toString());
         hospital.setIsDeleted(false);
         Hospital newHospital = new Hospital();
         newHospital.setHospital(hospital);

@@ -10,7 +10,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "t_token", schema = "v1")
+@Table(name = "token", schema = "v1")
 public class Token {
 
     @Id

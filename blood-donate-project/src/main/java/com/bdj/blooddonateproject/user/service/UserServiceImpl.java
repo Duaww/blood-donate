@@ -43,7 +43,6 @@ public class UserServiceImpl implements UserService {
     public void createAdmin() {
 
         User newUser = new User("admin", passwordEncoder.encode("123456789"), RoleEnum.ROLE_ADMIN);
-        newUser.setUuid(UUID.randomUUID().toString());
         newUser.setIsDeleted(false);
         Admin admin = new Admin();
         admin.setAdmin(newUser);
@@ -60,7 +59,6 @@ public class UserServiceImpl implements UserService {
         User newUser = new User(request.getUsername(),
                 passwordEncoder.encode(request.getPassword()),
                 RoleEnum.ROLE_DONATOR);
-        newUser.setUuid(UUID.randomUUID().toString());
         newUser.setIsDeleted(false);
         Donator newDonator = new Donator();
         newDonator.setDonator(newUser);

@@ -29,9 +29,6 @@ public class User implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "uuid", unique = true)
-    private String uuid;
-
     @Column(unique = true)
     private String username;
 
@@ -81,14 +78,6 @@ public class User implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getUuid() {
-        return this.uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
     }
 
     public String getUsername() {
