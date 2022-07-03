@@ -111,19 +111,19 @@ class _LoginScreen extends State<LoginScreen> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      ProfileScreen())),
+                                                      const ProfileScreen())),
                                         }
                                     }
                                   else
                                     {
-                                      showModal(context, 'Not have role',
-                                          'You not have role to login here'),
+                                      showModal(context, 'Không có quyền',
+                                          'Bạn không có quyền đăng nhập'),
                                       // print("you not have role to login here"),
                                     }
                                 })
                             .catchError((onError) => {
-                                  showModal(context, 'Login failed',
-                                      'Username or password incorrect'),
+                                  showModal(context, 'Đăng nhập thất bại',
+                                      'Tài khoản của bạn bị sai mật khẩu hoặc đã bị khóa'),
                                   // print("username or password incorrect"),
                                 }),
                       }),
