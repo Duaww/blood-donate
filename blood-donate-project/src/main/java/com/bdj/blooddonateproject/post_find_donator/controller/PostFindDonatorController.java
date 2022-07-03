@@ -102,8 +102,8 @@ public class PostFindDonatorController {
             try {
                 PostFindDonator postFindDonator = postFindDonatorService.createNewPost(newPost, hospital);
                 String deviceToken = "cx7DndqrTxi4OP-VOPv7s9:APA91bGm9F56HLjqFAuUEgwZjNFyUESQ1T6TqaSZafgVvpnY3M3R3MAuZ8v5pAgwdae1QPrZNb-g7ncMVBSwB3PcwNCrznySPOs2HbOHbiJ6NUimF0ENN-e62kugj_oANPqV8moNUHq3";
-                String subject = "New post";
-                String content = "Do you want to register to donate blood ?";
+                String subject = "Có một bài đăng mới";
+                String content = "Bạn có muốn tham gia đợt hiến máu lần này ?";
                 Map<String, String> data = new HashMap<String, String>();
                 data.put("postId", postFindDonator.getId().toString());
                 Note note = new Note(subject, content, data);
