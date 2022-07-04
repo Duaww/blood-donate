@@ -7,7 +7,8 @@ export const DonatedBloodComponent = () => {
   const [token, setToken] = useState("");
   const [listDonator, setListDonator] = useState([]);
   const [nameFilter, setNameFilter] = useState("");
-  const [bloodFilter, setBloodFilter] = useState("");
+  const [bloodFilter, setBloodFilter] = useState("O:A:B:AB");
+  const [idCardFilter, setIdCardFilter] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -54,6 +55,7 @@ export const DonatedBloodComponent = () => {
     let requestBody = {
       name: nameFilter,
       blood: bloodFilter.split(":"),
+      idCard: idCardFilter,
     };
 
     console.log(requestBody);
@@ -82,8 +84,17 @@ export const DonatedBloodComponent = () => {
           value={nameFilter}
           onChange={(e) => setNameFilter(e.target.value)}
         />
+        <label className="marign-right-5px">Số căn cước người hiến máu:</label>
+        <input
+          className="marign-right-15px text-search"
+          type="text"
+          id=""
+          name=""
+          placeholder="Nhập số căn cước"
+          value={idCardFilter}
+          onChange={(e) => setIdCardFilter(e.target.value)}
+        />
         <label className="marign-right-5px">Blood group :</label>
-
         <select
           className="marign-right-15px select-option"
           id="blood"
@@ -119,6 +130,7 @@ export const DonatedBloodComponent = () => {
                 <th className="">Sô căn cước</th>
                 <th className="">Email</th>
                 <th className="">Số điện thoại</th>
+                <th className="">Ngày hiến máu</th>
               </tr>
             </thead>
             <tbody className="">
@@ -136,6 +148,9 @@ export const DonatedBloodComponent = () => {
                   <td className="">{donator["donatorInfoDTO"]["idCard"]}</td>
                   <td className="">{donator["donatorInfoDTO"]["email"]}</td>
                   <td className="">{donator["donatorInfoDTO"]["phone"]}</td>
+                  <td className="">
+                    {convertTimeStampToDate(donator["timeDonated"])}
+                  </td>
                 </tr>
               ))}
             </tbody>

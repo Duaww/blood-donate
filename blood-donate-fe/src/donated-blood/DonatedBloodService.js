@@ -22,24 +22,24 @@ class DonatedBloodService {
     });
   }
 
-  confirmDonated(token, idDonator) {
-    const CONFIRM_DONATED = BASE_DONATED_URI + "/confirm-donated/" + idDonator;
+  confirmDonated(token, requestBody) {
+    const CONFIRM_DONATED = BASE_DONATED_URI + "/confirm-donated";
     const author = "Token " + token;
     const headers = {
       Authorization: author,
     };
-    return axios.get(CONFIRM_DONATED, { headers: headers });
+    return axios.post(CONFIRM_DONATED, requestBody, { headers: headers });
   }
 
-  updateNumNotDonated(token, idDonator) {
-    const UPDATE_NUM_NOT_DONATED =
-      "http://localhost:8080/api/donator/update-num-not-donated/" + idDonator;
-    const author = "Token " + token;
-    const headers = {
-      Authorization: author,
-    };
-    return axios.get(UPDATE_NUM_NOT_DONATED, { headers: headers });
-  }
+  // updateNumNotDonated(token, idDonator) {
+  //   const UPDATE_NUM_NOT_DONATED =
+  //     "http://localhost:8080/api/donator/update-num-not-donated/" + idDonator;
+  //   const author = "Token " + token;
+  //   const headers = {
+  //     Authorization: author,
+  //   };
+  //   return axios.get(UPDATE_NUM_NOT_DONATED, { headers: headers });
+  // }
 }
 
 export default new DonatedBloodService();

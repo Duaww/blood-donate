@@ -73,7 +73,7 @@ export const ListDonatorComponent = () => {
                 <th className="">Email</th>
                 <th className="">Số điện thoại</th>
                 <th className="">Số lần hiến máu</th>
-                <th className="">Số lần bỏ hiến máu</th>
+
                 <th className="">Khóa tài khoản</th>
               </tr>
             </thead>
@@ -91,7 +91,7 @@ export const ListDonatorComponent = () => {
                   <td className="">{donator["email"]}</td>
                   <td className="">{donator["phone"]}</td>
                   <td className="">{donator["numDonated"]}</td>
-                  <td className="">{donator["numOfNotDonated"]}</td>
+
                   <td className="">
                     <input
                       className="delete-btn"

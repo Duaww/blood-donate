@@ -15,6 +15,6 @@ public interface DonatedBloodService {
 
     Page<DonatedBloodDTO> getListDonatedWithFilter(Long id, FilterDonatedDTO donatedDTO, Pageable pageable);
 
-    void confirmDonated(Hospital hospital, Long donatorId);
+    void confirmDonated(Hospital hospital, Long donatorId, Long postId);
 
 }

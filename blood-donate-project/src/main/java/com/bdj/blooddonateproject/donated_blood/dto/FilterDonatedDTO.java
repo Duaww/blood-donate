@@ -7,6 +7,7 @@ import com.bdj.blooddonateproject.enums.GroupBlood;
 public class FilterDonatedDTO {
     private String name;
     private List<GroupBlood> blood;
+    private String idCard;
 
     public String getName() {
         return this.name;
@@ -24,12 +25,21 @@ public class FilterDonatedDTO {
         this.blood = blood;
     }
 
+    public String getIdCard() {
+        return this.idCard;
+    }
+
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
+    }
+
     public FilterDonatedDTO() {
     }
 
-    public FilterDonatedDTO(String name, List<GroupBlood> blood) {
+    public FilterDonatedDTO(String name, List<GroupBlood> blood, String idCard) {
         this.name = name;
         this.blood = blood;
+        this.idCard = idCard;
     }
 
 }

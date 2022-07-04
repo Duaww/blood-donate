@@ -8,6 +8,8 @@ import com.bdj.blooddonateproject.donator.model.Donator;
 import com.bdj.blooddonateproject.donator.repo.DonatorRepo;
 import com.bdj.blooddonateproject.enums.GroupBlood;
 import com.bdj.blooddonateproject.hospital.model.Hospital;
+import com.bdj.blooddonateproject.register_to_donate.model.RegisterToDonate;
+import com.bdj.blooddonateproject.register_to_donate.repo.RegisterToDonateRepo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,8 +30,14 @@ public class DonatedBloodServiceImpl implements DonatedBloodService {
     @Autowired
     private DonatorRepo donatorRepo;
 
-    public DonatedBloodServiceImpl(DonatedBloodRepo donatedBloodRepo) {
+    @Autowired
+    private RegisterToDonateRepo registerToDonateRepo;
+
+    public DonatedBloodServiceImpl(DonatedBloodRepo donatedBloodRepo, DonatorRepo donatorRepo,
+            RegisterToDonateRepo registerToDonateRepo) {
         this.donatedBloodRepo = donatedBloodRepo;
+        this.donatorRepo = donatorRepo;
+        this.registerToDonateRepo = registerToDonateRepo;
     }
 
     @Override
@@ -52,17 +60,21 @@ public class DonatedBloodServiceImpl implements DonatedBloodService {
         for (int i = 0; i < listBlood.size(); i++) {
             convert.add(listBlood.get(i).name());
         }
-        return donatedBloodRepo.getListDonatedWithFilter(id, donatedDTO.getName(), convert, pageable)
+        return donatedBloodRepo
+                .getListDonatedWithFilter(id, donatedDTO.getName(), convert, donatedDTO.getIdCard(), pageable)
                 .map(DonatedBloodDTO::new);
     }
 
     @Override
-    public void confirmDonated(Hospital hospital, Long donatorId) {
+    public void confirmDonated(Hospital hospital, Long donatorId, Long postId) {
+        RegisterToDonate registerToDonate = registerToDonateRepo.getRegisterByPostAndDonator(donatorId, postId);
+        registerToDonate.setIsDonated(true);
         Donator donator = donatorRepo.getById(donatorId);
         DonatedBlood donatedBlood = new DonatedBlood();
         donatedBlood.setHospital(hospital);
         donatedBlood.setDonator(donator);
         donatedBlood.setTimeDonated((int) (new Date().getTime() / 1000));
+        registerToDonateRepo.saveAndFlush(registerToDonate);
         donatedBloodRepo.saveAndFlush(donatedBlood);
 
     }

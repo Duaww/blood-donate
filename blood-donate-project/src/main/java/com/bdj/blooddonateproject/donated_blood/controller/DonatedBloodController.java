@@ -1,6 +1,7 @@
 package com.bdj.blooddonateproject.donated_blood.controller;
 
 import com.bdj.blooddonateproject.config.UserPrincipal;
+import com.bdj.blooddonateproject.donated_blood.dto.ConfirmDonatedDTO;
 import com.bdj.blooddonateproject.donated_blood.dto.DonatedBloodDTO;
 import com.bdj.blooddonateproject.donated_blood.dto.FilterDonatedDTO;
 import com.bdj.blooddonateproject.donated_blood.service.DonatedBloodService;
@@ -91,9 +92,9 @@ public class DonatedBloodController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("please login");
     }
 
-    @GetMapping("/confirm-donated/{donatorId}")
+    @PostMapping("/confirm-donated")
     @PreAuthorize("hasRole('ROLE_HOSPITAL')")
-    public ResponseEntity<?> confirmDonated(@PathVariable("donatorId") Long donatorId) {
+    public ResponseEntity<?> confirmDonated(@RequestBody ConfirmDonatedDTO confirmDonatedDTO) {
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
@@ -101,7 +102,8 @@ public class DonatedBloodController {
             UserPrincipal userPrincipal = (UserPrincipal) principal;
             Hospital hospital = hospitalService.findInfoHospital(userPrincipal.getUsername());
             try {
-                donatedBloodService.confirmDonated(hospital, donatorId);
+                donatedBloodService.confirmDonated(hospital, confirmDonatedDTO.getIdDonator(),
+                        confirmDonatedDTO.getIdPost());
             } catch (Exception e) {
                 // TODO: handle exception
                 return ResponseEntity.badRequest().body("error: " + e.getMessage());

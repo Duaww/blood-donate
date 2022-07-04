@@ -20,7 +20,6 @@ public class DonatorDTO {
     private String idCard;
 
     private Integer numDonated;
-    private Integer numOfNotDonated;
 
     public Long getId() {
         return this.id;
@@ -86,14 +85,6 @@ public class DonatorDTO {
         this.numDonated = numDonated;
     }
 
-    public Integer getNumOfNotDonated() {
-        return this.numOfNotDonated;
-    }
-
-    public void setNumOfNotDonated(Integer numOfNotDonated) {
-        this.numOfNotDonated = numOfNotDonated;
-    }
-
     public DonatorDTO() {
     }
 
@@ -105,11 +96,10 @@ public class DonatorDTO {
         this.email = donator.getEmail();
         this.blood = donator.getBlood();
         this.idCard = donator.getIdCard();
-        this.numOfNotDonated = donator.getNumOfNotDonated();
     }
 
     public DonatorDTO(Long id, String name, Integer birthday, String phone, String email, GroupBlood blood,
-            String idCard, Integer numDonated, Integer numOfNotDonated) {
+            String idCard, Integer numDonated) {
         this.id = id;
         this.name = name;
         this.birthday = birthday;
@@ -118,7 +108,7 @@ public class DonatorDTO {
         this.blood = blood;
         this.idCard = idCard;
         this.numDonated = numDonated;
-        this.numOfNotDonated = numOfNotDonated;
+
     }
 
 }

@@ -251,7 +251,9 @@ class _PostFindDonateScreen extends State<PostFindDonateScreen> {
                                       })
                                   .catchError((error) => {
                                         showModal(
-                                            context, "Hủy đăng kí", 'Thất bại'),
+                                            context,
+                                            "Hủy đăng kí thất bại",
+                                            'Bạn chưa đăng kí'),
                                       }),
                             }),
                       )
@@ -292,7 +294,8 @@ class _PostFindDonateScreen extends State<PostFindDonateScreen> {
                 showModal(context, "Đăng kí hiến máu", 'Thành công'),
               })
           .catchError((error) => {
-                showModal(context, "Đăng kí hiến máu", 'Thất bại'),
+                showModal(
+                    context, "Đăng kí hiến máu thất bại", 'Bạn đã đăng kí rồi'),
               });
     }
   }

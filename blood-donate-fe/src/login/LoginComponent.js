@@ -12,7 +12,7 @@ export const LoginComponent = (props) => {
 
   function login() {
     if (username == "" || password == "") {
-      window.alert("please fill full information");
+      window.alert("Xin hãy nhập đủ thông tin");
       return;
     }
 
@@ -23,7 +23,8 @@ export const LoginComponent = (props) => {
         let info = TokenService.decode(token);
         let authorizon = info["authorities"][0];
         if (authorizon == Role.DONATOR) {
-          navigate("/auth-error");
+          // navigate("/auth-error");
+          window.alert("Bạn không có quyền đăng nhập");
         } else if (authorizon == Role.HOSPITAL) {
           localStorage.setItem("token", token);
           navigate("/my-profile");
@@ -36,7 +37,7 @@ export const LoginComponent = (props) => {
         // let message = error.response.data;
         let statusCode = error.response.status;
         if (statusCode === 400 || statusCode === 401) {
-          navigate("/auth-error");
+          window.alert("Tài khoản hoặc mật khẩu không đúng");
         }
       });
   }

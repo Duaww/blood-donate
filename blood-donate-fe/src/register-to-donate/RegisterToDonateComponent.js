@@ -10,7 +10,9 @@ export const RegisterToDonateComponent = () => {
   const [token, setToken] = useState("");
   const [listRegister, setListRegister] = useState([]);
   const [nameFilter, setNameFilter] = useState("");
-  const [bloodFilter, setBloodFilter] = useState("");
+  const [bloodFilter, setBloodFilter] = useState("O:A:B:AB");
+  const [idCardFilter, setIdCardFilter] = useState("");
+
   const { key } = useParams();
 
   useEffect(() => {
@@ -51,9 +53,11 @@ export const RegisterToDonateComponent = () => {
       page: 1,
       size: 10,
     };
+
     let requestBody = {
       name: nameFilter,
       blood: bloodFilter.split(":"),
+      idCard: idCardFilter,
     };
 
     console.log(requestBody);
@@ -78,24 +82,30 @@ export const RegisterToDonateComponent = () => {
   }
 
   function confirmDonated(idDonator) {
-    DonatedBloodService.confirmDonated(token, idDonator)
+    let requestBody = {
+      idDonator: idDonator,
+      idPost: key,
+    };
+    DonatedBloodService.confirmDonated(token, requestBody)
       .then((res) => {
-        window.alert("UPDATE SUCESS");
+        document.getElementById(idDonator).style.backgroundColor = "grey";
+        document.getElementById(idDonator).disabled = true;
+        window.alert("Xác nhận thành công");
       })
       .catch((error) => {
         console.log(error);
       });
   }
 
-  function updateNumNotDonated(idDonator) {
-    DonatedBloodService.updateNumNotDonated(token, idDonator)
-      .then((res) => {
-        window.alert("UPDATE SUCESS");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+  // function updateNumNotDonated(idDonator) {
+  //   DonatedBloodService.updateNumNotDonated(token, idDonator)
+  //     .then((res) => {
+  //       window.alert("UPDATE SUCESS");
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }
 
   return (
     <div>
@@ -110,6 +120,16 @@ export const RegisterToDonateComponent = () => {
           placeholder="Nhập tên muốn tìm kiếm"
           value={nameFilter}
           onChange={(e) => setNameFilter(e.target.value)}
+        />
+        <label className="marign-right-5px">Số căn cước người hiến máu:</label>
+        <input
+          className="marign-right-15px text-search"
+          type="text"
+          id=""
+          name=""
+          placeholder="Nhập số căn cước"
+          value={idCardFilter}
+          onChange={(e) => setIdCardFilter(e.target.value)}
         />
         <label className="marign-right-5px">Blood group :</label>
 
@@ -149,7 +169,7 @@ export const RegisterToDonateComponent = () => {
                 <th className="">Email</th>
                 <th className="">Số điện thoại</th>
                 <th className="">Thời gian đăng kí</th>
-                <th className="">Actions</th>
+                <th className="">Xác nhận hiến máu</th>
               </tr>
             </thead>
             <tbody className="">
@@ -172,6 +192,13 @@ export const RegisterToDonateComponent = () => {
                   </td>
                   <td className="">
                     <button
+                      id={donator["donatorInfoDTO"]["id"]}
+                      disabled={donator["isDonated"] === true}
+                      style={{
+                        backgroundColor: donator["isDonated"]
+                          ? "grey"
+                          : "#1aa3ff",
+                      }}
                       type=""
                       className="update-btn"
                       onClick={() =>
@@ -180,7 +207,7 @@ export const RegisterToDonateComponent = () => {
                     >
                       Đã hiến máu
                     </button>
-                    <button
+                    {/* <button
                       type=""
                       className="delete-btn"
                       onClick={() =>
@@ -188,7 +215,7 @@ export const RegisterToDonateComponent = () => {
                       }
                     >
                       Chưa hiến máu
-                    </button>
+                    </button> */}
                   </td>
                 </tr>
               ))}

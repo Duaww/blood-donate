@@ -40,20 +40,22 @@ public class DonatorController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("please login");
     }
 
-    @GetMapping("/update-num-not-donated/{donatorId}")
-    @PreAuthorize("hasRole('ROLE_HOSPITAL')")
-    public ResponseEntity<?> updateNumOfNotDonated(@PathVariable("donatorId") Long donatorId) {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails) {
-            try {
-                donatorService.updateNumOfNotDonated(donatorId);
-            } catch (Exception e) {
-                // TODO: handle exception
-                return ResponseEntity.badRequest().body("error: " + e.getMessage());
-            }
-            return ResponseEntity.ok().body("message: " + "UPDATE SUCESS");
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("please login");
-    }
+    // @GetMapping("/update-num-not-donated/{donatorId}")
+    // @PreAuthorize("hasRole('ROLE_HOSPITAL')")
+    // public ResponseEntity<?> updateNumOfNotDonated(@PathVariable("donatorId")
+    // Long donatorId) {
+    // Object principal =
+    // SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    // if (principal instanceof UserDetails) {
+    // try {
+    // donatorService.updateNumOfNotDonated(donatorId);
+    // } catch (Exception e) {
+    // // TODO: handle exception
+    // return ResponseEntity.badRequest().body("error: " + e.getMessage());
+    // }
+    // return ResponseEntity.ok().body("message: " + "UPDATE SUCESS");
+    // }
+    // return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("please login");
+    // }
 
 }

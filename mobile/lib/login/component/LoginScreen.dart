@@ -75,57 +75,7 @@ class _LoginScreen extends State<LoginScreen> {
                       ElevatedButton.styleFrom(primary: Colors.pink.shade400),
                   child: const Text('Đăng nhập'),
                   onPressed: (() => {
-                        // print(LoginService.BASE_AUTH_URL),
-                        LoginService.login(
-                                nameController.text, passwordController.text)
-                            .then((res) => {
-                                  Util.token = res.data,
-                                  token = res.data,
-                                  roleOfUser =
-                                      TokenSerivce.decode(token)["authorities"]
-                                          [0],
-                                  if (roleOfUser ==
-                                      Role.ROLE_DONATOR
-                                          .toString()
-                                          .split(".")
-                                          .last)
-                                    {
-                                      if (Util.postIdNotification != "")
-                                        {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      ProfileScreen())),
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      (PostFindDonateScreen(
-                                                          id: int.parse(Util
-                                                              .postIdNotification))))),
-                                        }
-                                      else
-                                        {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const ProfileScreen())),
-                                        }
-                                    }
-                                  else
-                                    {
-                                      showModal(context, 'Không có quyền',
-                                          'Bạn không có quyền đăng nhập'),
-                                      // print("you not have role to login here"),
-                                    }
-                                })
-                            .catchError((onError) => {
-                                  showModal(context, 'Đăng nhập thất bại',
-                                      'Tài khoản của bạn bị sai mật khẩu hoặc đã bị khóa'),
-                                  // print("username or password incorrect"),
-                                }),
+                        login(context),
                       }),
                 )),
             Row(
@@ -168,5 +118,51 @@ class _LoginScreen extends State<LoginScreen> {
                     })
               ],
             ));
+  }
+
+  void login(BuildContext context) {
+    if (nameController.text == "" || passwordController.text == "") {
+      showModal(
+          context, 'Nhập thiếu thông tin', 'Hãy nhập đủ tài khoản và mật khẩu');
+      return;
+    }
+    LoginService.login(nameController.text, passwordController.text)
+        .then((res) => {
+              Util.token = res.data,
+              token = res.data,
+              roleOfUser = TokenSerivce.decode(token)["authorities"][0],
+              if (roleOfUser == Role.ROLE_DONATOR.toString().split(".").last)
+                {
+                  if (Util.postIdNotification != "")
+                    {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ProfileScreen())),
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => (PostFindDonateScreen(
+                                  id: int.parse(Util.postIdNotification))))),
+                    }
+                  else
+                    {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ProfileScreen())),
+                    }
+                }
+              else
+                {
+                  showModal(
+                      context, 'Không có quyền', 'Bạn không có quyền đăng nhập')
+                }
+            })
+        .catchError((onError) => {
+              showModal(context, 'Đăng nhập thất bại',
+                  'Tài khoản của bạn bị sai mật khẩu hoặc đã bị khóa'),
+              // print("username or password incorrect"),
+            });
   }
 }

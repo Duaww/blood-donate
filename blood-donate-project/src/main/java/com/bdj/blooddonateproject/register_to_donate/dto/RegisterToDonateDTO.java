@@ -14,6 +14,16 @@ public class RegisterToDonateDTO {
 
     private PostFindDonatorDTO postFindDonatorDTO;
 
+    private Boolean isDonated;
+
+    public Boolean getIsDonated() {
+        return this.isDonated;
+    }
+
+    public void setIsDonated(Boolean isDonated) {
+        this.isDonated = isDonated;
+    }
+
     public Long getId() {
         return this.id;
     }
@@ -54,14 +64,16 @@ public class RegisterToDonateDTO {
         this.timeRegister = registerToDonate.getTimeRegister();
         this.postFindDonatorDTO = new PostFindDonatorDTO(registerToDonate.getPost());
         this.donatorInfoDTO = new DonatorInfoDTO(registerToDonate.getDonator());
+        this.isDonated = registerToDonate.getIsDonated();
     }
 
     public RegisterToDonateDTO(Long id, Integer timeRegister, PostFindDonatorDTO postFindDonatorDTO,
-            DonatorInfoDTO donatorInfoDTO) {
+            DonatorInfoDTO donatorInfoDTO, Boolean isDonated) {
         this.id = id;
         this.timeRegister = timeRegister;
         this.postFindDonatorDTO = postFindDonatorDTO;
         this.donatorInfoDTO = donatorInfoDTO;
+        this.isDonated = isDonated;
     }
 
 }

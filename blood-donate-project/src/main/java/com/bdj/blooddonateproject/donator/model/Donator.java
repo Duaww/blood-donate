@@ -47,8 +47,6 @@ public class Donator {
 
     private String idCard;
 
-    private Integer numOfNotDonated;
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User donator;
@@ -141,14 +139,6 @@ public class Donator {
         this.donated = donated;
     }
 
-    public Integer getNumOfNotDonated() {
-        return this.numOfNotDonated;
-    }
-
-    public void setNumOfNotDonated(Integer numOfNotDonated) {
-        this.numOfNotDonated = numOfNotDonated;
-    }
-
     public Donator() {
     }
 
@@ -160,7 +150,6 @@ public class Donator {
         this.email = email;
         this.blood = blood;
         this.idCard = idCard;
-        this.numOfNotDonated = numOfNotDonated;
     }
 
 }

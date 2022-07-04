@@ -20,8 +20,9 @@ public interface DonatedBloodRepo extends JpaRepository<DonatedBlood, Long> {
     @Query(value = "SELECT * FROM v1.donated_blood WHERE donator_id = :donatorId ORDER BY time_donated DESC", nativeQuery = true)
     Page<DonatedBlood> getHistoryDonated(Long donatorId, Pageable pageable);
 
-    @Query(value = "SELECT dnb.* FROM v1.donated_blood dnb INNER JOIN v1.donator d ON d.id = dnb.donator_id WHERE dnb.hospital_id = :hospitalId AND d.name ILIKE %:nameFilter% AND d.blood IN (:groupBlood) ", nativeQuery = true)
+    @Query(value = "SELECT dnb.* FROM v1.donated_blood dnb INNER JOIN v1.donator d ON d.id = dnb.donator_id WHERE dnb.hospital_id = :hospitalId AND d.name ILIKE %:nameFilter% AND d.blood IN (:groupBlood) AND d.id_card ILIKE %:idCardFilter%", nativeQuery = true)
     Page<DonatedBlood> getListDonatedWithFilter(Long hospitalId, String nameFilter, List<String> groupBlood,
+            String idCardFilter,
             Pageable pageable);
 
 }

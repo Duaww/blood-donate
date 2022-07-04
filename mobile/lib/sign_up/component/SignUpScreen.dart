@@ -125,11 +125,23 @@ class _SignUpScreen extends State<SignUpScreen> {
   }
 
   register(BuildContext buildContext) {
-    if (passwordController.text != confirmPasswordController.text) {
-      showModal(context, "Wrong confirm password",
-          "The confirm password is incorrect");
+    if (usernameController.text == "" ||
+        fullnameController.text == "" ||
+        idCardController.text == "" ||
+        phoneController.text == "" ||
+        passwordController.text == "" ||
+        confirmPasswordController.text == "") {
+      showModal(context, "Nhập thông tin thiếu",
+          "Bạn hãy nhập đủ tất cả các thông tin");
       return;
     }
+
+    if (passwordController.text != confirmPasswordController.text) {
+      showModal(context, "Xác nhận mật khẩu không đúng",
+          "Mật khẩu và xác nhận mật khẩu không giống nhau");
+      return;
+    }
+
     var requestBody = {
       "username": usernameController.text,
       "fullname": fullnameController.text,
@@ -139,11 +151,11 @@ class _SignUpScreen extends State<SignUpScreen> {
     };
     SignUpService.signup(requestBody)
         .then((res) => {
-              showModal(context, "REGISTER SUCCESS",
-                  "Congratulations on your successful registration in the system"),
+              showModal(context, "Đăng kí thành công",
+                  "Chúc mừng bạn đã đăng kí thành công"),
             })
         .catchError((error) => {
-              showModal(context, "REGISTER FAIL", "REGISTER FAIL"),
+              showModal(context, "Đăng kí thất bại", "Đăng kí thất bại"),
             });
   }
 

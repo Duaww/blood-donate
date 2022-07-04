@@ -54,6 +54,7 @@ public class RegisterToDonateServiceImpl implements RegisterToDonateService {
         newRegiter.setTimeRegister(timeRegister);
         newRegiter.setDonator(donatorRepo.getById(donatorId));
         newRegiter.setPost(postFindDonatorRepo.getById(postId));
+        newRegiter.setIsDonated(false);
         registerToDonateRepo.save(newRegiter);
     }
 
@@ -82,7 +83,8 @@ public class RegisterToDonateServiceImpl implements RegisterToDonateService {
         for (int i = 0; i < listBlood.size(); i++) {
             convert.add(listBlood.get(i).name());
         }
-        return registerToDonateRepo.getListDonatedWithFilter(postId, donatedDTO.getName(), convert, pageable)
+        return registerToDonateRepo
+                .getListDonatedWithFilter(postId, donatedDTO.getName(), convert, donatedDTO.getIdCard(), pageable)
                 .map(RegisterToDonateDTO::new);
     }
 

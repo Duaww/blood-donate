@@ -31,6 +31,16 @@ public class RegisterToDonate {
 
     private Integer timeRegister;
 
+    private Boolean isDonated;
+
+    public Boolean getIsDonated() {
+        return this.isDonated;
+    }
+
+    public void setIsDonated(Boolean isDonated) {
+        this.isDonated = isDonated;
+    }
+
     public Long getId() {
         return this.id;
     }
@@ -66,8 +76,9 @@ public class RegisterToDonate {
     public RegisterToDonate() {
     }
 
-    public RegisterToDonate(Integer timeRegister) {
+    public RegisterToDonate(Integer timeRegister, Boolean isDonated) {
         this.timeRegister = timeRegister;
+        this.isDonated = isDonated;
     }
 
 }
